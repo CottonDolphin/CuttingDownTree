@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://dx3aorur1sf4y"]
 
 [ext_resource type="Script" uid="uid://dk71xurths2r2" path="res://script/tree.gd" id="1_dcgk5"]
+[ext_resource type="PackedScene" uid="uid://b37rsb3ixac7q" path="res://scene/wood.tscn" id="2_lutej"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_ycms6"]
 size = Vector3(2, 5, 2)
@@ -10,6 +11,7 @@ data = PackedVector3Array(-0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0
 
 [node name="Tree" type="Node3D" unique_id=541406261]
 script = ExtResource("1_dcgk5")
+wood_scene = ExtResource("2_lutej")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=118990170]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5727062, 0)

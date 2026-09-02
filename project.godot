@@ -17,6 +17,7 @@ config/features=PackedStringArray("4.7", "Forward Plus")
 
 Config="*uid://d0ld226n4ybnd"
 ConfigApplication="*uid://c1rp8q26focq4"
+GameManager="*uid://dfu15p8lbhc3v"
 
 [display]
 
