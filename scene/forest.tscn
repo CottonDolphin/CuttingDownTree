@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://ekghx0y72kgg"]
+
+[ext_resource type="PackedScene" uid="uid://7h47ulhmt8t3" path="res://scene/block.tscn" id="1_e2knd"]
+[ext_resource type="Script" uid="uid://bmvucdj6d7tj7" path="res://script/forest.gd" id="2_2xpkg"]
+[ext_resource type="PackedScene" uid="uid://dx3aorur1sf4y" path="res://scene/tree.tscn" id="3_gbfvw"]
+
+[node name="Forest" unique_id=1733137656 instance=ExtResource("1_e2knd")]
+script = ExtResource("2_2xpkg")
+trees_num_range = Vector2(20, 30)
+tree_scene = ExtResource("3_gbfvw")

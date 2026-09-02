@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://2cstdcdvbgyq"]
+
+[ext_resource type="PackedScene" uid="uid://7h47ulhmt8t3" path="res://scene/block.tscn" id="1_v3ycp"]
+[ext_resource type="Script" uid="uid://b6cildqrxecas" path="res://script/boundary.gd" id="2_aqcjt"]
+
+[node name="Boundary" unique_id=1733137656 instance=ExtResource("1_v3ycp")]
+script = ExtResource("2_aqcjt")

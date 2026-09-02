@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://c3fa8d3dfhvh8"]
+
+[ext_resource type="Script" uid="uid://dwjv1lqn2k7vo" path="res://script/hp_bar.gd" id="1_j6rd4"]
+
+[node name="HpBar" type="Control" unique_id=1141523751]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_j6rd4")

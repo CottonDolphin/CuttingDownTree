@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://deeled5u2p48n"]
+
+[ext_resource type="Script" uid="uid://bpe6m75jabkbx" path="res://script/ground.gd" id="1_vtjbo"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bddx0"]
+albedo_color = Color(0.26590675, 0.88, 0.18479998, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_wvhbo"]
+material = SubResource("StandardMaterial3D_bddx0")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_gbfvw"]
+
+[node name="Ground" type="MeshInstance3D" unique_id=1502933464]
+mesh = SubResource("BoxMesh_wvhbo")
+script = ExtResource("1_vtjbo")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=395619527]
+collision_mask = 15
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" unique_id=1910483672]
+shape = SubResource("BoxShape3D_gbfvw")

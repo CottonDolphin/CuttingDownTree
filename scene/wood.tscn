@@ -1,0 +1,38 @@
+[gd_scene format=3 uid="uid://b37rsb3ixac7q"]
+
+[ext_resource type="Script" uid="uid://eu3mqebqf2kp" path="res://script/wood.gd" id="1_k6sh8"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_k6sh8"]
+friction = 0.5
+bounce = 0.3
+
+[sub_resource type="BoxMesh" id="BoxMesh_k6sh8"]
+size = Vector3(1, 0.5, 0.5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_k6sh8"]
+size = Vector3(1, 0.3, 0.2)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ycms6"]
+size = Vector3(1.5, 1, 1.5)
+
+[node name="Wood" type="RigidBody3D" unique_id=1018192159]
+collision_layer = 16
+collision_mask = 31
+mass = 5.0
+physics_material_override = SubResource("PhysicsMaterial_k6sh8")
+script = ExtResource("1_k6sh8")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1621712497]
+mesh = SubResource("BoxMesh_k6sh8")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=2022046997]
+shape = SubResource("BoxShape3D_k6sh8")
+
+[node name="Area3D" type="Area3D" parent="." unique_id=1580695554]
+collision_layer = 16
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=861297837]
+shape = SubResource("BoxShape3D_ycms6")
+
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]

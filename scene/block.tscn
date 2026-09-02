@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://7h47ulhmt8t3"]
+
+[ext_resource type="Script" uid="uid://ddnlxw45dv5ft" path="res://script/block.gd" id="1_xv03h"]
+[ext_resource type="PackedScene" uid="uid://deeled5u2p48n" path="res://scene/ground.tscn" id="2_osf0l"]
+
+[node name="Block" type="Node3D" unique_id=1733137656]
+script = ExtResource("1_xv03h")
+
+[node name="Ground" parent="." unique_id=1502933464 instance=ExtResource("2_osf0l")]

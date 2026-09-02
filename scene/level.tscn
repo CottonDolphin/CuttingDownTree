@@ -1,0 +1,81 @@
+[gd_scene format=3 uid="uid://xvkckui2xauq"]
+
+[ext_resource type="Script" uid="uid://cyqqjqqifnwr2" path="res://script/level.gd" id="1_s4405"]
+[ext_resource type="PackedScene" uid="uid://cbfn045a2qibm" path="res://scene/map.tscn" id="2_dmi07"]
+[ext_resource type="PackedScene" uid="uid://cfqtcfji4apad" path="res://scene/player.tscn" id="3_7g0b6"]
+[ext_resource type="PackedScene" uid="uid://dx3aorur1sf4y" path="res://scene/tree.tscn" id="3_aw33w"]
+[ext_resource type="PackedScene" uid="uid://mmnrm4wv6kkk" path="res://script/Camera/camera.tscn" id="4_bddx0"]
+[ext_resource type="PackedScene" uid="uid://cut30r7fes6lw" path="res://scene/timer.tscn" id="4_ismto"]
+[ext_resource type="PackedScene" uid="uid://b37rsb3ixac7q" path="res://scene/wood.tscn" id="4_ktmlt"]
+[ext_resource type="PackedScene" uid="uid://dhwdmhh5vciu6" path="res://scene/weapon/axe.tscn" id="4_u2b8d"]
+[ext_resource type="PackedScene" uid="uid://d1xwt7q3c0ufb" path="res://scene/shop.tscn" id="5_bddx0"]
+[ext_resource type="PackedScene" uid="uid://cosgp4icrc20u" path="res://scene/setting.tscn" id="6_u2b8d"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_bddx0"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Sky_u2b8d"]
+sky_material = SubResource("ProceduralSkyMaterial_bddx0")
+
+[sub_resource type="Environment" id="Environment_aw33w"]
+background_mode = 2
+sky = SubResource("Sky_u2b8d")
+glow_enabled = true
+
+[node name="Level" type="Node" unique_id=1840467014]
+script = ExtResource("1_s4405")
+
+[node name="Environment" type="Node" parent="." unique_id=1879762693]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Environment" unique_id=678861968]
+environment = SubResource("Environment_aw33w")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Environment" unique_id=1135061483]
+transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
+shadow_enabled = true
+
+[node name="Map" parent="Environment" unique_id=823325386 instance=ExtResource("2_dmi07")]
+
+[node name="Tree" parent="Environment/Map" unique_id=541406261 instance=ExtResource("3_aw33w")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.745, 5, 0)
+wood_scene = ExtResource("4_ktmlt")
+
+[node name="Player" parent="." unique_id=701620421 node_paths=PackedStringArray("holding_weapon") instance=ExtResource("3_7g0b6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6, 0)
+holding_weapon = NodePath("WeaponHolder/AxeBase")
+backpack = Dictionary[String, int]({
+"wood": 0
+})
+
+[node name="WeaponHolder" type="Node3D" parent="Player" unique_id=1021643610]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0.7331219, 0.86702824, -0.37509346)
+
+[node name="AxeBase" parent="Player/WeaponHolder" unique_id=1080356782 instance=ExtResource("4_u2b8d")]
+
+[node name="HitBox" parent="Player/WeaponHolder/AxeBase" index="2" unique_id=1964639995]
+collision_layer = 8
+collision_mask = 15
+
+[node name="CameraRig" parent="." unique_id=1503408164 node_paths=PackedStringArray("player") instance=ExtResource("4_bddx0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6, 0)
+top_level = false
+visible = false
+player = NodePath("../Player")
+enable_cursor_shift = false
+
+[node name="Camera3D" parent="CameraRig/OffsetRig" parent_id_path=PackedInt32Array(1503408164, 1491136676) index="0" unique_id=1224089540]
+transform = Transform3D(1, 0, 0, 0, 0.49999997, 0.86602545, 0, -0.86602545, 0.49999997, 0, 15.482695, 11.432955)
+
+[node name="Timer" parent="." unique_id=920722250 instance=ExtResource("4_ismto")]
+
+[node name="Shop" parent="." unique_id=574129809 instance=ExtResource("5_bddx0")]
+
+[node name="Setting" parent="." unique_id=1038978933 instance=ExtResource("6_u2b8d")]
+
+[connection signal="body_entered" from="Player/WeaponHolder/AxeBase/BlockDetector" to="Player/WeaponHolder/AxeBase" method="_on_block_detector_body_entered"]
+[connection signal="body_exited" from="Player/WeaponHolder/AxeBase/BlockDetector" to="Player/WeaponHolder/AxeBase" method="_on_block_detector_body_exited"]
+
+[editable path="Environment/Map/Tree"]
+[editable path="Player/WeaponHolder/AxeBase"]
+[editable path="CameraRig"]

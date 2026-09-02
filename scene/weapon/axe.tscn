@@ -1,0 +1,115 @@
+[gd_scene format=3 uid="uid://dhwdmhh5vciu6"]
+
+[ext_resource type="Script" uid="uid://py2raivr5bet" path="res://script/weapon/axe.gd" id="1_3dnan"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_re86y"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_ycms6"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ycms6"]
+size = Vector3(1, 2, 1)
+
+[sub_resource type="Animation" id="Animation_caejb"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("HitBox/CollisionShape3D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_3dnan"]
+resource_name = "attack"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.06666667, 0.13333334, 0.2, 0.26666668, 0.36666667, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 0, -0.25307274), Vector3(0, 0, -1.1641346), Vector3(0, 0, -0.20071286), Vector3(0, 0, 0.25481808), Vector3(0, 0, 1.2182398), Vector3(0, 0, 0.5602507), Vector3(0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("HitBox/CollisionShape3D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_av4ry"]
+_data = {
+&"RESET": SubResource("Animation_caejb"),
+&"attack": SubResource("Animation_3dnan")
+}
+
+[node name="AxeBase" type="Node3D" unique_id=1080356782]
+script = ExtResource("1_3dnan")
+
+[node name="Visuals" type="Node3D" parent="." unique_id=114030781]
+
+[node name="AxeHead" type="MeshInstance3D" parent="Visuals" unique_id=501191840]
+transform = Transform3D(1, 0, 0, 0, 0.5, 0, 0, 0, 0.1, 0, 1.4031662, 0)
+mesh = SubResource("BoxMesh_re86y")
+
+[node name="AxeHandle" type="MeshInstance3D" parent="Visuals" unique_id=1458377298]
+transform = Transform3D(0.3, 0, 0, 0, 1.8, 0, 0, 0, 0.2, 0, 0.87279546, 0)
+mesh = SubResource("BoxMesh_ycms6")
+
+[node name="PickupArea" type="Area3D" parent="." unique_id=1258601413]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PickupArea" unique_id=786453718]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("BoxShape3D_ycms6")
+disabled = true
+debug_color = Color(0.8269246, 0.42430687, 0.25175643, 0.78431374)
+
+[node name="HitBox" type="Area3D" parent="." unique_id=1964639995]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HitBox" unique_id=600222206]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("BoxShape3D_ycms6")
+disabled = true
+debug_color = Color(0.8269246, 0.42430687, 0.25175643, 0.78431374)
+
+[node name="BlockDetector" type="Area3D" parent="." unique_id=1466556831]
+collision_layer = 8
+collision_mask = 15
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="BlockDetector" unique_id=2081864129]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("BoxShape3D_ycms6")
+disabled = true
+debug_color = Color(0.8269246, 0.42430687, 0.25175643, 0.78431374)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=636362635]
+libraries/ = SubResource("AnimationLibrary_av4ry")
+
+[connection signal="body_entered" from="HitBox" to="." method="_on_hit_box_body_entered"]

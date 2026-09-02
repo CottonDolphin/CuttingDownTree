@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://4pv1gqi8uyoj"]
+
+[ext_resource type="Script" uid="uid://cyi3yg05hhi5j" path="res://script/warehouse.gd" id="1_b71ks"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_ycms6"]
+size = Vector3(15, 10, 10)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_qm2id"]
+data = PackedVector3Array(-7.5, 5, 5, 7.5, 5, 5, -7.5, -5, 5, 7.5, 5, 5, 7.5, -5, 5, -7.5, -5, 5, 7.5, 5, -5, -7.5, 5, -5, 7.5, -5, -5, -7.5, 5, -5, -7.5, -5, -5, 7.5, -5, -5, 7.5, 5, 5, 7.5, 5, -5, 7.5, -5, 5, 7.5, 5, -5, 7.5, -5, -5, 7.5, -5, 5, -7.5, 5, -5, -7.5, 5, 5, -7.5, -5, -5, -7.5, 5, 5, -7.5, -5, 5, -7.5, -5, -5, 7.5, 5, 5, -7.5, 5, 5, 7.5, 5, -5, -7.5, 5, 5, -7.5, 5, -5, 7.5, 5, -5, -7.5, -5, 5, 7.5, -5, 5, -7.5, -5, -5, 7.5, -5, 5, 7.5, -5, -5, -7.5, -5, -5)
+
+[node name="Warehouse" type="MeshInstance3D" unique_id=2146694970]
+mesh = SubResource("BoxMesh_ycms6")
+script = ExtResource("1_b71ks")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=1596815286]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" unique_id=725734967]
+shape = SubResource("ConcavePolygonShape3D_qm2id")

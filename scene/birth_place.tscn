@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://d3m31lpa47hui"]
+
+[ext_resource type="PackedScene" uid="uid://7h47ulhmt8t3" path="res://scene/block.tscn" id="1_g1q0k"]
+[ext_resource type="PackedScene" uid="uid://4pv1gqi8uyoj" path="res://scene/warehouse.tscn" id="2_3ep1a"]
+[ext_resource type="Script" uid="uid://d383b8ci7q82l" path="res://script/birth_place.gd" id="2_tgj4g"]
+
+[node name="BirthPlace" unique_id=1733137656 instance=ExtResource("1_g1q0k")]
+script = ExtResource("2_tgj4g")
+
+[node name="Warehouse" parent="." index="1" unique_id=2146694970 instance=ExtResource("2_3ep1a")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 5, -10)
