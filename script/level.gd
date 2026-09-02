@@ -12,10 +12,11 @@ var round:int = 1
 
 #初始游戏目标
 @export_group("关卡目标设置")
-@export var init_target:int = 10
-
+@export var init_target:int = 50
 #每轮增加的目标
 @export var plus_target:int = 10 
+@export var plus_target_rate:float = 1.2 
+
 
 #当前轮次目标
 var round_target:int
@@ -40,7 +41,8 @@ func start_game() -> void:
 
 # 更新关卡数据
 func update_level_data() -> void:
-	round_target = init_target + plus_target * (round - 1)
+	#round_target = init_target + plus_target * (round - 1)
+	round_target = init_target + init_target * plus_target_rate * (round - 1)
 	round_time = init_time + plus_time_rate * init_time * (round - 1)
 
 # 启动计时器的函数
@@ -66,6 +68,7 @@ func success() -> void:
 	
 	# 2. 清空本轮已交的木头数据
 	GameManager.reset_wood_data() 
+	
 	
 	# 3. 重新计算并启动下一轮
 	start_game()
