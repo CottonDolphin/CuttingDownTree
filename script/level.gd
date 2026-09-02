@@ -1,17 +1,28 @@
 # 游戏关卡
 extends Node
 
-#本轮游戏目标
-@export var level_targe:int = 10
+#当前轮次
+var round:int = 1
+
+#初始游戏目标
+@export var init_target:int = 10
+
+#每轮增加的目标
+@export var plus_target:int = 10 
+
+#当前轮次目标
+var round_target:int
 
 #玩家
 @export var player:Player
 
 
 func _ready() -> void:
-	var current_num:String = str(GameManager.get_item_num("wood"))
-	var targe_num:String = str(level_targe)
-	$HUB/WoodCounter/CollectedNum.text = current_num + " / " + targe_num
+	# 计算当前轮次目标
+	round_target = init_target + plus_target * (round - 1)
+	GameManager.update_target_amount(round_target)
+	
+	
 
 func _process(delta: float) -> void:
 	pass

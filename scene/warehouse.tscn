@@ -8,11 +8,27 @@ size = Vector3(15, 10, 10)
 [sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_qm2id"]
 data = PackedVector3Array(-7.5, 5, 5, 7.5, 5, 5, -7.5, -5, 5, 7.5, 5, 5, 7.5, -5, 5, -7.5, -5, 5, 7.5, 5, -5, -7.5, 5, -5, 7.5, -5, -5, -7.5, 5, -5, -7.5, -5, -5, 7.5, -5, -5, 7.5, 5, 5, 7.5, 5, -5, 7.5, -5, 5, 7.5, 5, -5, 7.5, -5, -5, 7.5, -5, 5, -7.5, 5, -5, -7.5, 5, 5, -7.5, -5, -5, -7.5, 5, 5, -7.5, -5, 5, -7.5, -5, -5, 7.5, 5, 5, -7.5, 5, 5, 7.5, 5, -5, -7.5, 5, 5, -7.5, 5, -5, 7.5, 5, -5, -7.5, -5, 5, 7.5, -5, 5, -7.5, -5, -5, 7.5, -5, 5, 7.5, -5, -5, -7.5, -5, -5)
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_ycms6"]
+size = Vector3(20.94946, 17.103226, 18.658293)
+
 [node name="Warehouse" type="MeshInstance3D" unique_id=2146694970]
 mesh = SubResource("BoxMesh_ycms6")
 script = ExtResource("1_b71ks")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=1596815286]
+collision_layer = 32
+collision_mask = 3
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" unique_id=725734967]
 shape = SubResource("ConcavePolygonShape3D_qm2id")
+
+[node name="Area3D" type="Area3D" parent="." unique_id=1041835598]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3.063507)
+collision_layer = 32
+collision_mask = 3
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=532631043]
+shape = SubResource("BoxShape3D_ycms6")
+
+[connection signal="body_entered" from="Area3D" to="." method="_on_body_entered"]
+[connection signal="body_exited" from="Area3D" to="." method="_on_body_exited"]

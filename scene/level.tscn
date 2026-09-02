@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://dhwdmhh5vciu6" path="res://scene/weapon/axe.tscn" id="4_u2b8d"]
 [ext_resource type="PackedScene" uid="uid://d1xwt7q3c0ufb" path="res://scene/shop.tscn" id="5_bddx0"]
 [ext_resource type="PackedScene" uid="uid://cosgp4icrc20u" path="res://scene/setting.tscn" id="6_u2b8d"]
+[ext_resource type="Script" uid="uid://cpp36lvj8ej45" path="res://script/wood_counter.gd" id="10_ktmlt"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_bddx0"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -84,6 +85,7 @@ offset_left = 37.0
 offset_top = 11.0
 offset_right = 163.0
 offset_bottom = 77.0
+script = ExtResource("10_ktmlt")
 
 [node name="CollectedNum" type="Label" parent="HUB/WoodCounter" unique_id=1346476214]
 layout_mode = 1

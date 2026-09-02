@@ -6,8 +6,7 @@ const SPEED = 5.0
 const JUMP_VELOCITY = 4.5
 
 @export var holding_weapon:Node3D
-var is_weapon_blocked: bool = false
-var block_direction: Vector3 = Vector3.ZERO # 武器指向的方向
+
 
 @export var backpack:Dictionary[String, int] = {}
 
@@ -52,6 +51,16 @@ func collect_resource(resource_name:String) -> void:
 	backpack[resource_name] = current_num + 1
 	print("玩家当前资源:",backpack)
 
+# 获取玩家身上资源的数量 
+func get_resource_count(resource_name:String) -> int:
+	return backpack.get(resource_name,0)
+
+# 清空玩家身上的资源
+func take_all_resource(resource_name:String) -> int:
+	var total_resource_count:int = get_resource_count(resource_name)
+	backpack.set(resource_name,0)
+	return total_resource_count
+
 
 func _physics_process(delta: float) -> void:
 	# 添加重力
@@ -66,13 +75,7 @@ func _physics_process(delta: float) -> void:
 	var input_dir := Input.get_vector("left","right","forward","backward")
 	var direction := (transform.basis * Vector3(input_dir.x,0,input_dir.y)).normalized()
 	
-	# 核心限制：如果武器被卡住，且玩家尝试继续朝着武器朝向的方向推挤，强行将该方向的速度清零
-	if is_weapon_blocked:
-		# 判断玩家输入方向是否与武器刺入方向一致（点积 > 0 说明在同向推进）
-		#print("武器阻挡方向:",block_direction)
-		if direction.dot(block_direction) > 0:
-			# 限制前向移动，但允许玩家“向后倒退”离开障碍物
-			direction = direction.slide(block_direction)
+	
 	
 	if direction:
 		velocity.x = direction.x * SPEED
@@ -82,19 +85,13 @@ func _physics_process(delta: float) -> void:
 		velocity.z = move_toward(velocity.z,0,SPEED)
 		
 	move_and_slide()
-	
-func _on_weapon_blocked_changed(blocked: bool, dir: Vector3):
-	is_weapon_blocked = blocked
-	block_direction = dir
-
-
-	
+		
 		
 func _ready() -> void:
 	# 假设武器被装备到了 WeaponHolder 下
 	if has_node("WeaponHolder/AxeBase"):
 		var weapon = $WeaponHolder/AxeBase
-		weapon.weapon_blocked_changed.connect(_on_weapon_blocked_changed)
+		
 	
 func _process(delta: float) -> void:
 	move_angle()
