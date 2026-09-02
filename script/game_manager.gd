@@ -20,14 +20,21 @@ func update_collected_amount(amount:int) -> void:
 	var collected_amount:int = get_item_num("wood")
 	UiUpdate.update_wood(collected_amount,target_mount)
 
-
 # 添加数据
 func add_item(item_name:String,add_amount:int) -> void:
 	var current_amount:int = item_list.get(item_name,0)
 	var new_amount:int = current_amount + add_amount
 	item_list.set(item_name,new_amount)
 	
-
 # 获取数据
 func get_item_num(item_name:String) -> int:
 	return item_list.get(item_name,0)
+
+# 重置木头相关的数据
+func reset_wood_data():
+	target_mount = 0
+	item_list.clear()
+	
+# 重置游戏数据
+func reset_all_data():
+	reset_wood_data()
