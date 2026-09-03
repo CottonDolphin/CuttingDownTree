@@ -60,7 +60,7 @@ transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0.73
 
 [node name="AxeBase" parent="Player/WeaponHolder" unique_id=1080356782 instance=ExtResource("4_u2b8d")]
 
-[node name="HitBox" parent="Player/WeaponHolder/AxeBase" index="2" unique_id=1964639995]
+[node name="AttackArea" parent="Player/WeaponHolder/AxeBase" index="2" unique_id=1964639995]
 collision_layer = 8
 collision_mask = 15
 
@@ -70,7 +70,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.6694489, 5, -7.582952)
 [node name="CameraRig" parent="." unique_id=1503408164 node_paths=PackedStringArray("player") instance=ExtResource("4_bddx0")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6, 0)
 top_level = false
-visible = false
 player = NodePath("../Player")
 enable_cursor_shift = false
 

@@ -2,6 +2,9 @@
 class_name Player
 extends CharacterBody3D
 
+@export_group("玩家生命值")
+@export var hp:float = 100.0
+
 @export_group("玩家移动速度")
 @export var speed:float = 5.0
 @export var speed_up_acceleration_rate:float = 2
@@ -92,6 +95,15 @@ func take_all_resource(resource_name:String) -> int:
 	backpack.set(resource_name,0)
 	return total_resource_count
 
+# 受到攻击
+func get_hit(damage:float) -> void:
+	hp -= damage
+	print("玩家当前血量：",hp)
+	if hp <= 0:
+		print("玩家已死亡")
+		pass
+
+
 
 func _physics_process(delta: float) -> void:
 	
@@ -108,3 +120,8 @@ func _process(delta: float) -> void:
 	attack()
 	
 	speed_up(delta)
+
+
+func _on_hit_box_area_entered(area: Area3D) -> void:
+	if area is DamageArea:
+		get_hit(area.owner.attack_power)

@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://dhwdmhh5vciu6"]
 
 [ext_resource type="Script" uid="uid://py2raivr5bet" path="res://script/weapon/axe.gd" id="1_3dnan"]
+[ext_resource type="Script" uid="uid://crwp38x2q1fef" path="res://script/damage_area.gd" id="2_av4ry"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_re86y"]
 
@@ -26,7 +27,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("AttackArea/CollisionShape3D:disabled")
+tracks/1/path = NodePath("DamageArea/CollisionShape3D:disabled")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -54,7 +55,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("AttackArea/CollisionShape3D:disabled")
+tracks/1/path = NodePath("DamageArea/CollisionShape3D:disabled")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -91,9 +92,10 @@ shape = SubResource("BoxShape3D_ycms6")
 disabled = true
 debug_color = Color(0.8269246, 0.42430687, 0.25175643, 0.78431374)
 
-[node name="AttackArea" type="Area3D" parent="." unique_id=1964639995]
+[node name="DamageArea" type="Area3D" parent="." unique_id=1964639995]
+script = ExtResource("2_av4ry")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="AttackArea" unique_id=600222206]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DamageArea" unique_id=600222206]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("BoxShape3D_ycms6")
 disabled = true

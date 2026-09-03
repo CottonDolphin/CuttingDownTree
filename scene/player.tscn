@@ -25,7 +25,11 @@ shape = SubResource("CapsuleShape3D_ycms6")
 
 [node name="HitBox" type="Area3D" parent="." unique_id=1781306706]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0168622, 0)
+collision_layer = 2
+collision_mask = 64
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="HitBox" unique_id=953735986]
 shape = SubResource("CapsuleShape3D_re86y")
 debug_color = Color(0.0310761, 0.6233337, 0.5227305, 0.41960785)
+
+[connection signal="area_entered" from="HitBox" to="." method="_on_hit_box_area_entered"]

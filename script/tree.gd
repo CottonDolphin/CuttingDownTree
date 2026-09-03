@@ -67,4 +67,5 @@ func _process(delta: float) -> void:
 
 
 func _on_hit_box_area_entered(area: Area3D) -> void:
-	get_hit(area.owner.attack_power)
+	if area is DamageArea:
+		get_hit(area.owner.attack_power)
