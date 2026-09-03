@@ -15,7 +15,7 @@ var round:int = 1
 @export var init_target:int = 50
 #每轮增加的目标
 @export var plus_target:int = 10 
-@export var plus_target_rate:float = 1.2 
+@export var plus_target_rate:float = 0.5 
 
 
 #当前轮次目标

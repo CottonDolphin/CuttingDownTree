@@ -51,6 +51,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.745, 5, 0)
 
 [node name="Player" parent="." unique_id=701620421 node_paths=PackedStringArray("holding_weapon") instance=ExtResource("3_7g0b6")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6, 0)
+accel_speed = 5.0
 holding_weapon = NodePath("WeaponHolder/AxeBase")
 
 [node name="WeaponHolder" type="Node3D" parent="Player" unique_id=1021643610]

@@ -66,11 +66,12 @@ func speed_up(delta:float) -> void:
 func attack() -> void:
 	
 	if Input.is_action_pressed("attack"):
-		print("触发攻击动作！")
+		
 		# 通过变量 holding_weapon 获取它下面的 AnimationPlayer
 		var anim_player := holding_weapon.get_node("AnimationPlayer") as AnimationPlayer
 		if anim_player:
 			if not anim_player.is_playing():
+				#print("触发攻击动作！")
 				anim_player.play("attack")
 		else:
 			push_warning("holding_weapon 下找不到 AnimationPlayer")
