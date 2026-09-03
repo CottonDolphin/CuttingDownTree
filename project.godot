@@ -71,6 +71,7 @@ speed_up={
 3d_physics/layer_4="Weapon"
 3d_physics/layer_5="Resource"
 3d_physics/layer_6="Building"
+3d_physics/layer_7="Enemy"
 
 [physics]
 

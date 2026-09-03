@@ -26,7 +26,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("HitBox/CollisionShape3D:disabled")
+tracks/1/path = NodePath("AttackArea/CollisionShape3D:disabled")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -54,7 +54,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("HitBox/CollisionShape3D:disabled")
+tracks/1/path = NodePath("AttackArea/CollisionShape3D:disabled")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -91,9 +91,9 @@ shape = SubResource("BoxShape3D_ycms6")
 disabled = true
 debug_color = Color(0.8269246, 0.42430687, 0.25175643, 0.78431374)
 
-[node name="HitBox" type="Area3D" parent="." unique_id=1964639995]
+[node name="AttackArea" type="Area3D" parent="." unique_id=1964639995]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="HitBox" unique_id=600222206]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="AttackArea" unique_id=600222206]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("BoxShape3D_ycms6")
 disabled = true
@@ -111,5 +111,3 @@ debug_color = Color(0.8269246, 0.42430687, 0.25175643, 0.78431374)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=636362635]
 libraries/ = SubResource("AnimationLibrary_av4ry")
-
-[connection signal="body_entered" from="HitBox" to="." method="_on_hit_box_body_entered"]

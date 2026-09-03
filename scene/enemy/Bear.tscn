@@ -1,5 +1,11 @@
 [gd_scene format=3 uid="uid://bpopuryn5ej7n"]
 
+[ext_resource type="Script" uid="uid://d1tegrf1r7xmb" path="res://script/enemy/bear.gd" id="1_fu72w"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_vw600"]
+radius = 1.5
+height = 4.0
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pb6bq"]
 albedo_color = Color(0.69, 0.34476998, 0.14489998, 1)
 
@@ -13,11 +19,10 @@ radius = 0.3
 height = 0.6
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_ycms6"]
-radius = 0.4
+radius = 0.6
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_vw600"]
-radius = 2.0
-height = 4.0
+[sub_resource type="BoxShape3D" id="BoxShape3D_214j1"]
+size = Vector3(4, 4, 2.5)
 
 [sub_resource type="Animation" id="Animation_pb6bq"]
 length = 0.001
@@ -86,6 +91,13 @@ _data = {
 }
 
 [node name="Bear" type="CharacterBody3D" unique_id=1992498714]
+collision_layer = 64
+collision_mask = 127
+script = ExtResource("1_fu72w")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1261871854]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.1127443, 0)
+shape = SubResource("CapsuleShape3D_vw600")
 
 [node name="Body" type="Node3D" parent="." unique_id=301844122]
 
@@ -116,9 +128,18 @@ mesh = SubResource("CapsuleMesh_pb6bq")
 shape = SubResource("SphereShape3D_ycms6")
 debug_color = Color(0.8826107, 0.31469896, 0.31547427, 0.41960785)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1261871854]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.1127443, 0)
-shape = SubResource("CapsuleShape3D_vw600")
+[node name="AttackArea3D" type="Area3D" parent="." unique_id=998769024]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.058884, 2)
+collision_layer = 64
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="AttackArea3D" unique_id=432028765]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.6718235)
+shape = SubResource("BoxShape3D_214j1")
+debug_color = Color(0.72, 0.71136004, 0.20159999, 0.41960785)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1666121140]
 libraries/ = SubResource("AnimationLibrary_d8iio")
+
+[connection signal="body_entered" from="AttackArea3D" to="." method="_on_attack_area_3d_body_entered"]
+[connection signal="body_exited" from="AttackArea3D" to="." method="_on_attack_area_3d_body_exited"]

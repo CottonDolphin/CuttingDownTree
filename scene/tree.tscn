@@ -6,8 +6,11 @@
 [sub_resource type="BoxMesh" id="BoxMesh_ycms6"]
 size = Vector3(2, 5, 2)
 
-[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_dcgk5"]
-data = PackedVector3Array(-0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, -0.5)
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_lutej"]
+data = PackedVector3Array(-1, 2.5, 1, 1, 2.5, 1, -1, -2.5, 1, 1, 2.5, 1, 1, -2.5, 1, -1, -2.5, 1, 1, 2.5, -1, -1, 2.5, -1, 1, -2.5, -1, -1, 2.5, -1, -1, -2.5, -1, 1, -2.5, -1, 1, 2.5, 1, 1, 2.5, -1, 1, -2.5, 1, 1, 2.5, -1, 1, -2.5, -1, 1, -2.5, 1, -1, 2.5, -1, -1, 2.5, 1, -1, -2.5, -1, -1, 2.5, 1, -1, -2.5, 1, -1, -2.5, -1, 1, 2.5, 1, -1, 2.5, 1, 1, 2.5, -1, -1, 2.5, 1, -1, 2.5, -1, 1, 2.5, -1, -1, -2.5, 1, 1, -2.5, 1, -1, -2.5, -1, 1, -2.5, 1, 1, -2.5, -1, -1, -2.5, -1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ycms6"]
+size = Vector3(2, 5, 2)
 
 [node name="Tree" type="Node3D" unique_id=541406261]
 script = ExtResource("1_dcgk5")
@@ -17,9 +20,17 @@ wood_scene = ExtResource("2_lutej")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5727062, 0)
 mesh = SubResource("BoxMesh_ycms6")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D" unique_id=1093713611]
-collision_layer = 4
-collision_mask = 15
+[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D" unique_id=2061422149]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/StaticBody3D" unique_id=22569330]
-shape = SubResource("ConcavePolygonShape3D_dcgk5")
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/StaticBody3D" unique_id=702133400]
+shape = SubResource("ConcavePolygonShape3D_lutej")
+
+[node name="HitBox" type="Area3D" parent="." unique_id=780778850]
+collision_layer = 4
+collision_mask = 8
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HitBox" unique_id=294244056]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5801015, 0)
+shape = SubResource("BoxShape3D_ycms6")
+
+[connection signal="area_entered" from="HitBox" to="." method="_on_hit_box_area_entered"]

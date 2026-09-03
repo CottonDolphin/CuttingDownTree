@@ -16,12 +16,6 @@ func _ready():
 	
 
 
-func _on_hit_box_body_entered(body: Node3D) -> void:
-	if body.owner is MyTree:
-		# body 就是 MyTree 类型
-		var tree := body.owner as MyTree
-		tree.get_hit(attack_power)
-
 
 func _on_block_detector_body_entered(body: Node3D) -> void:
 	# 过滤掉玩家自己，只检测静态物体（如树木 Layer 3）

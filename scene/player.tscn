@@ -6,13 +6,26 @@
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ycms6"]
 
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_re86y"]
+radius = 0.6
+height = 2.2
+
 [node name="Player" type="CharacterBody3D" unique_id=1301615285]
 collision_layer = 2
-collision_mask = 5
+collision_mask = 117
 script = ExtResource("1_xo3ru")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1008426016]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0168622, 0)
 mesh = SubResource("CapsuleMesh_ycms6")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1451234164]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0168622, 0)
 shape = SubResource("CapsuleShape3D_ycms6")
+
+[node name="HitBox" type="Area3D" parent="." unique_id=1781306706]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0168622, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HitBox" unique_id=953735986]
+shape = SubResource("CapsuleShape3D_re86y")
+debug_color = Color(0.0310761, 0.6233337, 0.5227305, 0.41960785)
