@@ -99,6 +99,7 @@ script = ExtResource("1_fu72w")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1261871854]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.1127443, 0)
 shape = SubResource("CapsuleShape3D_vw600")
+debug_color = Color(0.03137255, 0.62352943, 0.52156866, 0.41960785)
 
 [node name="Body" type="Node3D" parent="." unique_id=301844122]
 
@@ -145,8 +146,18 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.6718235)
 shape = SubResource("BoxShape3D_214j1")
 debug_color = Color(0.72, 0.71136004, 0.20159999, 0.41960785)
 
+[node name="HitBox" type="Area3D" parent="." unique_id=2102597704]
+collision_layer = 64
+collision_mask = 8
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HitBox" unique_id=1499802183]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.1127443, 0)
+shape = SubResource("CapsuleShape3D_vw600")
+debug_color = Color(0.03137255, 0.62352943, 0.52156866, 0.41960785)
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1666121140]
 libraries/ = SubResource("AnimationLibrary_d8iio")
 
 [connection signal="body_entered" from="AttackArea3D" to="." method="_on_attack_area_3d_body_entered"]
 [connection signal="body_exited" from="AttackArea3D" to="." method="_on_attack_area_3d_body_exited"]
+[connection signal="area_entered" from="HitBox" to="." method="_on_hit_box_area_entered"]

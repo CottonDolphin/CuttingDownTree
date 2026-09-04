@@ -3,6 +3,8 @@ extends CharacterBody3D
 
 @export var attack_power:float = 20
 
+@export var hp:float = 100
+
 const SPEED = 5.0
 const JUMP_VELOCITY = 4.5
 
@@ -37,6 +39,16 @@ func attack() -> void:
 			$AnimationPlayer.play("left_paw_attack")
 		else:
 			$AnimationPlayer.play("right_paw_attack")
+
+# 受到攻击
+func get_hit(damage:float) -> void:
+	hp -= damage
+	print("敌人当前血量：",hp)
+	if hp <= 0:
+		print("敌人已死亡")
+		queue_free()
+
+
 			
 func _physics_process(delta: float) -> void:
 	pass
@@ -78,3 +90,8 @@ func _on_attack_area_3d_body_exited(body: Node3D) -> void:
 		is_player_in_range = false
 		#将攻击目标转为玩家
 		attack_target = null
+
+
+func _on_hit_box_area_entered(area: Area3D) -> void:
+	if area is DamageArea:
+		get_hit(area.owner.attack_power)
