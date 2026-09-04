@@ -21,6 +21,12 @@ var current_tree_pos:Array[Vector3] = []
 # 生成树的场景
 @export var tree_scene:PackedScene
 
+# 地面节点
+@onready var ground:Node3D = $NavigationRegion3D/Ground
+
+# 板块上物体容器
+@onready var object_container:Node = $NavigationRegion3D/ObjectContainer
+
 
 #设置板块布局
 static func set_layout(config:Dictionary) -> void:
@@ -60,7 +66,7 @@ func generate_trees() -> void:
 		# 将树场景实例化
 		if pos:
 			var tree = tree_scene.instantiate() as MyTree
-			add_child(tree)
+			object_container.add_child(tree)
 			tree.position = pos
 			
 			
@@ -70,7 +76,7 @@ func get_generate_pos() -> Vector3:
 	
 	var x:float = randf_range(generate_x_limit.x,generate_x_limit.y)
 	var z:float = randf_range(generate_z_limit.x,generate_z_limit.y)
-	var y:float = $Ground.y / 2
+	var y:float = ground.y / 2
 	var random_pos:Vector3 = Vector3(x,y,z)
 	
 	#检查是否给树生成的空间
@@ -98,10 +104,12 @@ func check_have_space(pos:Vector3) -> bool:
 
 func _ready() -> void:
 	# 在这里计算，确保 $Ground 已准备好
-	var half_x: float = $Ground.x / 2.0 - 1.0
-	var half_z: float = $Ground.z / 2.0 - 1.0
+	var half_x: float = ground.x / 2.0 - 1.0
+	var half_z: float = ground.z / 2.0 - 1.0
 	
 	generate_x_limit = Vector2(-half_x, half_x)
 	generate_z_limit = Vector2(-half_z, half_z)
 	
 	generate_trees()
+	
+	$NavigationRegion3D.bake_navigation_mesh(true)

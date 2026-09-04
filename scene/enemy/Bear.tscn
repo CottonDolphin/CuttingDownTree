@@ -158,6 +158,8 @@ debug_color = Color(0.03137255, 0.62352943, 0.52156866, 0.41960785)
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1666121140]
 libraries/ = SubResource("AnimationLibrary_d8iio")
 
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=419025529]
+
 [connection signal="body_entered" from="AttackArea3D" to="." method="_on_attack_area_3d_body_entered"]
 [connection signal="body_exited" from="AttackArea3D" to="." method="_on_attack_area_3d_body_exited"]
 [connection signal="area_entered" from="HitBox" to="." method="_on_hit_box_area_entered"]

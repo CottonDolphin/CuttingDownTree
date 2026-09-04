@@ -3,7 +3,15 @@
 [ext_resource type="Script" uid="uid://ddnlxw45dv5ft" path="res://script/block.gd" id="1_xv03h"]
 [ext_resource type="PackedScene" uid="uid://deeled5u2p48n" path="res://scene/ground.tscn" id="2_osf0l"]
 
+[sub_resource type="NavigationMesh" id="NavigationMesh_re86y"]
+agent_radius = 0.0
+
 [node name="Block" type="Node3D" unique_id=1733137656]
 script = ExtResource("1_xv03h")
 
-[node name="Ground" parent="." unique_id=1502933464 instance=ExtResource("2_osf0l")]
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="." unique_id=1517508465]
+navigation_mesh = SubResource("NavigationMesh_re86y")
+
+[node name="Ground" parent="NavigationRegion3D" unique_id=1502933464 instance=ExtResource("2_osf0l")]
+
+[node name="ObjectContainer" type="Node3D" parent="NavigationRegion3D" unique_id=456618184]

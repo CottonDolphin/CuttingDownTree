@@ -1,13 +1,16 @@
 extends CharacterBody3D
 
+@export var hp:float = 100
 
 @export var attack_power:float = 20
 
-@export var hp:float = 100
+@export var speed:float = 5
 
-const SPEED = 5.0
-const JUMP_VELOCITY = 4.5
 
+
+
+# 跟随目标
+var follow_target:Node3D
 
 # 攻击目标
 var attack_target:Node3D 
@@ -24,6 +27,19 @@ enum AttackSide {
 # 攻击方向
 var current_attack_side: AttackSide = AttackSide.LEFT
 
+
+# 跟随
+func follow() -> void:
+	if follow_target == null:
+		follow_target = get_tree().get_first_node_in_group("Player")
+	
+	if follow_target:
+		$NavigationAgent3D.set_target_position(follow_target.global_position)
+		
+		velocity = global_position.direction_to($NavigationAgent3D.get_next_path_position()) * speed
+		
+		move_and_slide()
+	
 # 攻击
 func attack() -> void:
 	if is_player_in_range and not $AnimationPlayer.is_playing():
@@ -51,27 +67,7 @@ func get_hit(damage:float) -> void:
 
 			
 func _physics_process(delta: float) -> void:
-	pass
-	## Add the gravity.
-	#if not is_on_floor():
-		#velocity += get_gravity() * delta
-#
-	## Handle jump.
-	#if Input.is_action_just_pressed("ui_accept") and is_on_floor():
-		#velocity.y = JUMP_VELOCITY
-#
-	## Get the input direction and handle the movement/deceleration.
-	## As good practice, you should replace UI actions with custom gameplay actions.
-	#var input_dir := Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
-	#var direction := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
-	#if direction:
-		#velocity.x = direction.x * SPEED
-		#velocity.z = direction.z * SPEED
-	#else:
-		#velocity.x = move_toward(velocity.x, 0, SPEED)
-		#velocity.z = move_toward(velocity.z, 0, SPEED)
-#
-	#move_and_slide()
+	follow()
 
 func _process(delta: float) -> void:
 	attack()

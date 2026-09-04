@@ -18,6 +18,7 @@ var birth_place_col = 0
 #用来检测哪些地方可以放置板块
 var blocks:Array[bool]
 
+
 # 应用配置
 static func apply_config(config:Dictionary) -> void:
 	
@@ -162,10 +163,12 @@ func set_block_pos(block:Block,row:int,col:int) -> void:
 	var current_row:int = row + 1
 	var current_col:int = col + 1
 	
-	var ground: MeshInstance3D = block.get_node("Ground") 
+	var ground: MeshInstance3D = block.get_node("./NavigationRegion3D/Ground") 
 	block.position.z = (current_row - birth_place_row) * ground.mesh.size.z
 	block.position.x = (current_col - birth_place_col) * ground.mesh.size.x
 	block.position.y = $BirthPlace.position.y
+
+
 
 func _ready() -> void:
 	
@@ -177,7 +180,8 @@ func _ready() -> void:
 	
 	#根据地图大小用随机板块填充整个地图
 	fill_map()
-
+	
+	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
