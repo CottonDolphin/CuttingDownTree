@@ -22,10 +22,13 @@ var current_tree_pos:Array[Vector3] = []
 @export var tree_scene:PackedScene
 
 # 地面节点
-@onready var ground:Node3D = $NavigationRegion3D/Ground
+#@onready var ground:Node3D = $NavigationRegion3D/Ground
+@onready var ground:Node3D = $Ground
+
 
 # 板块上物体容器
-@onready var object_container:Node = $NavigationRegion3D/ObjectContainer
+#@onready var object_container:Node = $NavigationRegion3D/ObjectContainer
+@onready var object_container:Node = $ObjectContainer
 
 
 #设置板块布局
@@ -110,6 +113,11 @@ func _ready() -> void:
 	generate_x_limit = Vector2(-half_x, half_x)
 	generate_z_limit = Vector2(-half_z, half_z)
 	
-	generate_trees()
+	#generate_trees()
+
 	
-	$NavigationRegion3D.bake_navigation_mesh(true)
+	#$NavigationRegion3D.bake_navigation_mesh(true)
+	
+	
+	
+	

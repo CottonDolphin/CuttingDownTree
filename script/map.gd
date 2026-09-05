@@ -10,6 +10,9 @@ static var all_block_name:Array[String] = []
 static var rows_num:int = 0
 static var cols_num:int = 0
 
+# 出生点
+@onready var birth_place:BirthPlace = $NavigationRegion3D/BirthPlace
+
 # 出生点的行数和列数
 var birth_place_row = 0
 var birth_place_col = 0
@@ -17,6 +20,10 @@ var birth_place_col = 0
 
 #用来检测哪些地方可以放置板块
 var blocks:Array[bool]
+
+
+#导航区域
+@onready var nav_region:NavigationRegion3D = $NavigationRegion3D
 
 
 # 应用配置
@@ -46,9 +53,9 @@ static func get_all_block_name() -> void:
 func set_birth_place_pos() -> void:
 	birth_place_row = rows_num
 	birth_place_col = cols_num / 2
-	$BirthPlace.position.x = 0
-	$BirthPlace.position.y = 0
-	$BirthPlace.position.z = 0
+	birth_place.position.x = 0
+	birth_place.position.y = 0
+	birth_place.position.z = 0
 	
 	# 标记出生点的位置
 	var index:int = (birth_place_row - 1) * cols_num + (birth_place_col - 1)
@@ -120,7 +127,7 @@ func generate_block(block_script:GDScript,block_scene: PackedScene,r: int, c: in
 		set_block_pos(block, r, c)
 		
 		# 将板块添加到节点树
-		add_child(block)
+		nav_region.add_child(block)
 
 
 # 检查当前板块是否可以放入地图
@@ -163,10 +170,12 @@ func set_block_pos(block:Block,row:int,col:int) -> void:
 	var current_row:int = row + 1
 	var current_col:int = col + 1
 	
-	var ground: MeshInstance3D = block.get_node("./NavigationRegion3D/Ground") 
+	#var ground: MeshInstance3D = block.get_node("./NavigationRegion3D/Ground") 
+	var ground: MeshInstance3D = block.get_node("Ground") 
+	
 	block.position.z = (current_row - birth_place_row) * ground.mesh.size.z
 	block.position.x = (current_col - birth_place_col) * ground.mesh.size.x
-	block.position.y = $BirthPlace.position.y
+	block.position.y = birth_place.position.y
 
 
 
@@ -181,7 +190,8 @@ func _ready() -> void:
 	#根据地图大小用随机板块填充整个地图
 	fill_map()
 	
-	
+	#烘焙导航网格
+	nav_region.bake_navigation_mesh(true)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:

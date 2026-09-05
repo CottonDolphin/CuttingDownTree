@@ -29,3 +29,8 @@ static func apply_config(config:Dictionary) -> void:
 		
 		
 		pass
+
+
+func _ready() -> void:
+	pass
+	#$NavigationRegion3D.bake_navigation_mesh(true)

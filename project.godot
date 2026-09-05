@@ -11,6 +11,7 @@ config_version=5
 [application]
 
 config/name="砍树"
+run/main_scene="uid://xvkckui2xauq"
 config/features=PackedStringArray("4.7", "Forward Plus")
 
 [autoload]
@@ -72,6 +73,10 @@ speed_up={
 3d_physics/layer_5="Resource"
 3d_physics/layer_6="Building"
 3d_physics/layer_7="Enemy"
+
+[navigation]
+
+3d/default_edge_connection_margin=0.5
 
 [physics]
 

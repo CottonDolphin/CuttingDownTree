@@ -7,5 +7,5 @@
 [node name="BirthPlace" unique_id=1733137656 instance=ExtResource("1_g1q0k")]
 script = ExtResource("2_tgj4g")
 
-[node name="Warehouse" parent="." index="1" unique_id=2146694970 instance=ExtResource("2_3ep1a")]
+[node name="Warehouse" parent="NavigationRegion3D/ObjectContainer" parent_id_path=PackedInt32Array(456618184) index="0" unique_id=2146694970 instance=ExtResource("2_3ep1a")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 5, -10)

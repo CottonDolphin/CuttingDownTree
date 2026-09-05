@@ -3,7 +3,12 @@
 [ext_resource type="Script" uid="uid://1mn1xbnecq2b" path="res://script/map.gd" id="1_rgtto"]
 [ext_resource type="PackedScene" uid="uid://d3m31lpa47hui" path="res://scene/birth_place.tscn" id="2_wpp1k"]
 
+[sub_resource type="NavigationMesh" id="NavigationMesh_ycms6"]
+
 [node name="Map" type="Node3D" unique_id=823325386]
 script = ExtResource("1_rgtto")
 
-[node name="BirthPlace" parent="." unique_id=1733137656 instance=ExtResource("2_wpp1k")]
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="." unique_id=957471264]
+navigation_mesh = SubResource("NavigationMesh_ycms6")
+
+[node name="BirthPlace" parent="NavigationRegion3D" unique_id=1733137656 instance=ExtResource("2_wpp1k")]
