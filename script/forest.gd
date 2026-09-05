@@ -113,7 +113,7 @@ func _ready() -> void:
 	generate_x_limit = Vector2(-half_x, half_x)
 	generate_z_limit = Vector2(-half_z, half_z)
 	
-	#generate_trees()
+	generate_trees()
 
 	
 	#$NavigationRegion3D.bake_navigation_mesh(true)

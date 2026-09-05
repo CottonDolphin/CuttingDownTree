@@ -33,4 +33,11 @@ collision_mask = 8
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5801015, 0)
 shape = SubResource("BoxShape3D_ycms6")
 
+[node name="NavigationObstacle3D" type="NavigationObstacle3D" parent="." unique_id=922473507]
+height = 6.0
+vertices = PackedVector3Array(-1, 0, -1, 1, 0, -1, 1, 0, 1, -1, 0, 1)
+affect_navigation_mesh = true
+carve_navigation_mesh = true
+avoidance_enabled = false
+
 [connection signal="area_entered" from="HitBox" to="." method="_on_hit_box_area_entered"]
