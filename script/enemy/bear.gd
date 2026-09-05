@@ -36,7 +36,19 @@ func follow() -> void:
 	if follow_target:
 		$NavigationAgent3D.set_target_position(follow_target.global_position)
 		
-		velocity = global_position.direction_to($NavigationAgent3D.get_next_path_position()) * speed
+		var next_path_pos: Vector3 = $NavigationAgent3D.get_next_path_position()
+		var move_dir: Vector3 = global_position.direction_to(next_path_pos)
+		
+		# 设置移动速度
+		velocity = move_dir * speed
+		
+		# --- 转向逻辑 ---
+		# 1. 消除Y轴差值，确保敌人只水平旋转（避免上下倾斜）
+		var target_look_pos := Vector3(next_path_pos.x, global_position.y, next_path_pos.z)
+		
+		# 2. 检查距离，防止敌人到达点时与目标点重合触发 look_at 报错
+		if global_position.distance_squared_to(target_look_pos) > 0.001:
+			look_at(target_look_pos, Vector3.UP)
 		
 		move_and_slide()
 	
