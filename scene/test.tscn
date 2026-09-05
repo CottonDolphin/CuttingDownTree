@@ -1,29 +1,115 @@
 [gd_scene format=3 uid="uid://i44ng2bdoj16"]
 
 [ext_resource type="PackedScene" uid="uid://cbfn045a2qibm" path="res://scene/map.tscn" id="1_fghjm"]
+[ext_resource type="Script" uid="uid://cyqqjqqifnwr2" path="res://script/level.gd" id="1_sov46"]
+[ext_resource type="PackedScene" uid="uid://dx3aorur1sf4y" path="res://scene/tree.tscn" id="3_ivktd"]
+[ext_resource type="PackedScene" uid="uid://bpopuryn5ej7n" path="res://scene/enemy/bear.tscn" id="4_npe5v"]
+[ext_resource type="PackedScene" uid="uid://mmnrm4wv6kkk" path="res://script/Camera/camera.tscn" id="5_u1fpc"]
+[ext_resource type="PackedScene" uid="uid://cut30r7fes6lw" path="res://scene/timer.tscn" id="6_ts07n"]
+[ext_resource type="PackedScene" uid="uid://d1xwt7q3c0ufb" path="res://scene/shop.tscn" id="7_n2ak6"]
+[ext_resource type="PackedScene" uid="uid://cosgp4icrc20u" path="res://scene/setting.tscn" id="8_2643f"]
+[ext_resource type="Script" uid="uid://cpp36lvj8ej45" path="res://script/wood_counter.gd" id="9_amvha"]
+[ext_resource type="Script" uid="uid://bathjo118h2xp" path="res://script/timer_ui.gd" id="10_mfj6y"]
 
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_bp0px"]
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_bddx0"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
 ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
 
-[sub_resource type="Sky" id="Sky_5u11y"]
-sky_material = SubResource("ProceduralSkyMaterial_bp0px")
+[sub_resource type="Sky" id="Sky_u2b8d"]
+sky_material = SubResource("ProceduralSkyMaterial_bddx0")
 
-[sub_resource type="Environment" id="Environment_u3ux8"]
+[sub_resource type="Environment" id="Environment_aw33w"]
 background_mode = 2
-sky = SubResource("Sky_5u11y")
+sky = SubResource("Sky_u2b8d")
 glow_enabled = true
+
+[sub_resource type="LabelSettings" id="LabelSettings_aw33w"]
+font_size = 30
+
+[sub_resource type="LabelSettings" id="LabelSettings_oxop7"]
+font_size = 30
 
 [node name="Test" type="Node3D" unique_id=65684893]
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=144630047]
-environment = SubResource("Environment_u3ux8")
+[node name="Level" type="Node" parent="." unique_id=1840467014]
+script = ExtResource("1_sov46")
+metadata/_edit_horizontal_guides_ = [32.0]
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=32914299]
+[node name="Environment" type="Node" parent="Level" unique_id=1879762693]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Level/Environment" unique_id=678861968]
+environment = SubResource("Environment_aw33w")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Level/Environment" unique_id=1135061483]
 transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
 shadow_enabled = true
 
-[node name="Map" parent="." unique_id=823325386 instance=ExtResource("1_fghjm")]
+[node name="Map" parent="Level/Environment" unique_id=823325386 instance=ExtResource("1_fghjm")]
 
-[editable path="Map"]
-[editable path="Map/BirthPlace"]
+[node name="Tree" parent="Level/Environment/Map" unique_id=541406261 instance=ExtResource("3_ivktd")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.745, 5, 0)
+
+[node name="Bear" parent="Level" unique_id=1992498714 instance=ExtResource("4_npe5v")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.6694489, 5, -27.582952)
+speed = 4.0
+
+[node name="CameraRig" parent="Level" unique_id=1503408164 instance=ExtResource("5_u1fpc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6, 0)
+top_level = false
+enable_cursor_shift = false
+
+[node name="Camera3D" parent="Level/CameraRig/OffsetRig" parent_id_path=PackedInt32Array(1503408164, 1491136676) index="0" unique_id=1224089540]
+transform = Transform3D(1, 0, 0, 0, 0.49999997, 0.86602545, 0, -0.86602545, 0.49999997, 0, 15.482695, 11.432955)
+
+[node name="Timer" parent="Level" unique_id=920722250 instance=ExtResource("6_ts07n")]
+
+[node name="Shop" parent="Level" unique_id=574129809 instance=ExtResource("7_n2ak6")]
+
+[node name="Setting" parent="Level" unique_id=1038978933 instance=ExtResource("8_2643f")]
+
+[node name="HUB" type="CanvasLayer" parent="Level" unique_id=1186964376]
+
+[node name="WoodCounter" type="Control" parent="Level/HUB" unique_id=610358825]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 37.0
+offset_top = 11.0
+offset_right = 163.0
+offset_bottom = 77.0
+script = ExtResource("9_amvha")
+
+[node name="CollectedNum" type="Label" parent="Level/HUB/WoodCounter" unique_id=1346476214]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -21.0
+offset_right = 79.0
+offset_bottom = 21.0
+grow_vertical = 2
+text = "0 / 100"
+label_settings = SubResource("LabelSettings_aw33w")
+
+[node name="TimerUI" type="Control" parent="Level/HUB" unique_id=172593029]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 969.0
+offset_top = 37.0
+offset_right = 1102.0
+offset_bottom = 77.0
+script = ExtResource("10_mfj6y")
+
+[node name="TimeLabel" type="Label" parent="Level/HUB/TimerUI" unique_id=1420858598]
+layout_mode = 0
+offset_left = 81.0
+offset_top = -13.0
+offset_right = 132.0
+offset_bottom = 29.0
+text = "100"
+label_settings = SubResource("LabelSettings_oxop7")
+
+[connection signal="timeout" from="Level/Timer" to="Level" method="_on_level_timer_timeout"]
+
+[editable path="Level/Environment/Map"]
+[editable path="Level/Environment/Map/Tree"]
+[editable path="Level/CameraRig"]
