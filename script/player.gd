@@ -74,8 +74,8 @@ func attack() -> void:
 		var anim_player := holding_weapon.get_node("AnimationPlayer") as AnimationPlayer
 		if anim_player:
 			if not anim_player.is_playing():
-				#print("触发攻击动作！")
 				anim_player.play("attack")
+				
 		else:
 			push_warning("holding_weapon 下找不到 AnimationPlayer")
 
