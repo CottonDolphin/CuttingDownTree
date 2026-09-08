@@ -135,7 +135,7 @@ func switch_equipment() -> void:
 
 # 使用装备
 func use_euipment() -> void:
-	if Input.is_action_pressed("use_equipment"):
+	if holding_euipment:
 		if current_equipment_type == EquipmentData.EquipmentType.TREE_CUTTING \
 		or current_equipment_type == EquipmentData.EquipmentType.HUNTING:
 			attack()
@@ -143,12 +143,13 @@ func use_euipment() -> void:
 			use_item()
 # 攻击
 func attack() -> void:
-	holding_euipment.attack()
+	if Input.is_action_pressed("use_equipment"):
+		holding_euipment.attack()
 	
 # 使用道具
 func use_item() -> void:
-	print("使用道具")
-	pass
+	if Input.is_action_just_pressed("use_equipment"):
+		holding_euipment.use_item()
 
 # 收集资源
 func collect_resource(resource_name:String) -> void:
@@ -183,6 +184,8 @@ func _physics_process(delta: float) -> void:
 func _ready() -> void:
 	load_equipment("axe")
 	put_on_equipment(equipment_bar.get(EquipmentData.EquipmentType.TREE_CUTTING))	
+	
+	load_equipment("bomb")
 	
 func _process(delta: float) -> void:
 	move_angle()

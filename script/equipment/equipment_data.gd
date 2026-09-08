@@ -15,5 +15,11 @@ var database: Dictionary = {
 		"type": EquipmentType.TREE_CUTTING,
 		"scene_path": "res://scene/equipment/tree cutting tools/axe.tscn",
 		"stats": {"attack": 10, "speed": -2}
+	},
+	"bomb": {
+		"name": "炸弹",
+		"type": EquipmentType.COUSUMABLE,
+		"scene_path": "res://scene/equipment/consumables/bomb.tscn",
+		"stats": {"attack": 10, "speed": -2}
 	}
 }
