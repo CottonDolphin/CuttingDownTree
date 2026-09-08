@@ -58,8 +58,7 @@ func check_result() -> void:
 	if collected_num >= round_target:
 		success()
 	else:
-		pass
-		#fail()
+		fail()
 
 # 游戏成功触发的逻辑
 func success() -> void:

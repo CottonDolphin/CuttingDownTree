@@ -33,7 +33,7 @@ func get_item_num(item_name:String) -> int:
 # 重置木头相关的数据
 func reset_wood_data():
 	target_mount = 0
-	item_list.clear()
+	item_list.set("wood",0)
 	
 # 重置游戏数据
 func reset_all_data():

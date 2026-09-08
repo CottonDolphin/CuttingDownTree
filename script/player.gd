@@ -12,12 +12,19 @@ extends CharacterBody3D
 @export	var accel_speed:float = 2.0 
 var current_acceleration_rate:float = 1
 
-@export_category("玩家持有武器")
-@export var holding_weapon:Node3D
-
 @export_category("玩家背包")
 @export var backpack:Dictionary[String, int] = {}
 
+@export_category("玩家持有装备")
+@export var holding_euipment:Node3D
+#当前使用装备类型
+var current_equipment_type:int = EquipmentData.EquipmentType.TREE_CUTTING
+
+#装备栏
+var equipment_bar:Dictionary = {}
+
+#装备挂载的节点
+@onready var equipment_holder:Node3D = $EuipmentHolder
 
 # 移动玩家朝向
 func move_angle() -> void:
@@ -65,19 +72,83 @@ func speed_up(delta:float) -> void:
 	# 让倍率平滑向目标值移动
 	current_acceleration_rate = move_toward(current_acceleration_rate, target_rate, accel_speed * delta)
 
+## 加载并装备指定 ID 的装备
+func load_equipment(equipment_id: String) -> void:
+	# 1. 查数据
+	if not EquipmentData.database.has(equipment_id):
+		push_error("装备不存在: " + equipment_id)
+		return
+	
+	var data: Dictionary = EquipmentData.database[equipment_id]
+	var equip_type: int = data.type
+	
+	# 2. 卸载同类型旧装备
+	unload_equipment(equip_type)
+	
+	# 3. 实例化装备场景
+	var scene: PackedScene = load(data.scene_path)
+	if scene == null:
+		push_error("装备场景加载失败: " + data.scene_path)
+		return
+	
+	var instance: Node = scene.instantiate()
+	
+	# 5. 记录并初始化
+	equipment_bar[equip_type] = instance
+	#instance.set_equipment_data(data)  # 如果装备脚本有这个方法
+	
+	print("已装备: ", data.name)
+	#_apply_stats(data.stats, true)
+
+## 卸载指定类型的装备
+func unload_equipment(equip_type: int) -> void:
+	if equipment_bar.has(equip_type):
+		var old = equipment_bar[equip_type]
+		#var old_data = old.get_equipment_data()  # 假设装备脚本提供数据
+		
+		#_apply_stats(old_data.stats, false)  # 移除属性加成
+		old.queue_free()
+		equipment_bar.erase(equip_type)
+		#print("已卸下: ", old_data.name)
+
+# 将装备装上
+# 将装备装上，返回被替换下来的旧装备（不销毁实例）
+func put_on_equipment(equipment: Node) -> Node:
+	var old_equipment: Node = null
+	
+	# 如果当前已有装备，先移出（不销毁）
+	if equipment_holder.get_child_count() > 0:
+		old_equipment = equipment_holder.get_child(0)
+		equipment_holder.remove_child(old_equipment)
+	
+	# 装入新装备
+	equipment_holder.add_child(equipment)
+	holding_euipment = equipment
+	
+	return old_equipment
+
+# 切换装备
+func switch_equipment() -> void:
+	var type_num:int = EquipmentData.EquipmentType.size()
+	current_equipment_type = (current_equipment_type + 1) % type_num
+	put_on_equipment(equipment_bar.get(current_equipment_type))
+
+# 使用装备
+func use_euipment() -> void:
+	if Input.is_action_pressed("use_equipment"):
+		if current_equipment_type == EquipmentData.EquipmentType.TREE_CUTTING \
+		or current_equipment_type == EquipmentData.EquipmentType.HUNTING:
+			attack()
+		elif current_equipment_type == EquipmentData.EquipmentType.COUSUMABLE:
+			use_item()
 # 攻击
 func attack() -> void:
+	holding_euipment.attack()
 	
-	if Input.is_action_pressed("attack"):
-		
-		# 通过变量 holding_weapon 获取它下面的 AnimationPlayer
-		var anim_player := holding_weapon.get_node("AnimationPlayer") as AnimationPlayer
-		if anim_player:
-			if not anim_player.is_playing():
-				anim_player.play("attack")
-				
-		else:
-			push_warning("holding_weapon 下找不到 AnimationPlayer")
+# 使用道具
+func use_item() -> void:
+	print("使用道具")
+	pass
 
 # 收集资源
 func collect_resource(resource_name:String) -> void:
@@ -104,23 +175,29 @@ func get_hit(damage:float) -> void:
 		pass
 
 
-
 func _physics_process(delta: float) -> void:
 	
 	#处理玩家移动
 	move()	
 		
 func _ready() -> void:
-	pass
-		
+	load_equipment("axe")
+	put_on_equipment(equipment_bar.get(EquipmentData.EquipmentType.TREE_CUTTING))	
 	
 func _process(delta: float) -> void:
 	move_angle()
-	
-	attack()
+		
+	use_euipment()
 	
 	speed_up(delta)
 
+func _unhandled_input(event: InputEvent) -> void:
+	
+	# 切换装备
+	if event.is_action_pressed("switch_equipment"):
+		print("切换装备")
+		switch_equipment()
+	
 
 func _on_hit_box_area_entered(area: Area3D) -> void:
 	if area is DamageArea:
