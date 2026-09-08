@@ -1,6 +1,6 @@
 class_name Consumable
-extends Node
+extends Node3D
 
 # 使用道具
-func use_item() -> void:
+func use_item(player:Player) -> void:
 	print("使用道具")

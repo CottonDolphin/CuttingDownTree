@@ -2,9 +2,7 @@
 
 [ext_resource type="Script" uid="uid://eu3mqebqf2kp" path="res://script/wood.gd" id="1_k6sh8"]
 
-[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_k6sh8"]
-friction = 0.5
-bounce = 0.3
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_tfhct"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_k6sh8"]
 size = Vector3(1, 0.5, 0.5)
@@ -18,8 +16,7 @@ size = Vector3(1.5, 1, 1.5)
 [node name="Wood" type="RigidBody3D" unique_id=1018192159]
 collision_layer = 16
 collision_mask = 31
-mass = 5.0
-physics_material_override = SubResource("PhysicsMaterial_k6sh8")
+physics_material_override = SubResource("PhysicsMaterial_tfhct")
 script = ExtResource("1_k6sh8")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1621712497]

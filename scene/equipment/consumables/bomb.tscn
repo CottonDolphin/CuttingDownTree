@@ -2,12 +2,25 @@
 
 [ext_resource type="Script" uid="uid://cf8vunew2dtqh" path="res://scene/equipment/consumables/bomb.gd" id="1_mm3jm"]
 
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_mm3jm"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_ycms6"]
+
 [sub_resource type="SphereMesh" id="SphereMesh_ycms6"]
 
-[node name="BombBase" type="Node3D" unique_id=2101024974]
+[node name="BombBase" type="RigidBody3D" unique_id=1988590840]
+collision_layer = 8
+collision_mask = 127
+physics_material_override = SubResource("PhysicsMaterial_mm3jm")
 script = ExtResource("1_mm3jm")
 
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1860563405]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("SphereShape3D_ycms6")
+disabled = true
+
 [node name="Visuals" type="Node3D" parent="." unique_id=1806566967]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Visuals" unique_id=773817761]
 mesh = SubResource("SphereMesh_ycms6")

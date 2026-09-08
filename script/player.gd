@@ -2,6 +2,8 @@
 class_name Player
 extends CharacterBody3D
 
+const PUSH_FORCE := 2.0
+
 @export_group("玩家生命值")
 @export var hp:float = 100.0
 
@@ -149,7 +151,7 @@ func attack() -> void:
 # 使用道具
 func use_item() -> void:
 	if Input.is_action_just_pressed("use_equipment"):
-		holding_euipment.use_item()
+		holding_euipment.use_item(self)
 
 # 收集资源
 func collect_resource(resource_name:String) -> void:
@@ -180,6 +182,9 @@ func _physics_process(delta: float) -> void:
 	
 	#处理玩家移动
 	move()	
+	
+	
+	
 		
 func _ready() -> void:
 	load_equipment("axe")

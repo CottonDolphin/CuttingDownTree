@@ -12,13 +12,8 @@ height = 2.2
 
 [node name="Player" type="CharacterBody3D" unique_id=1301615285]
 collision_layer = 2
-collision_mask = 117
+collision_mask = 125
 script = ExtResource("1_xo3ru")
-hp = null
-speed = null
-speed_up_acceleration_rate = null
-accel_speed = null
-backpack = null
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1008426016]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0168622, 0)
