@@ -75,7 +75,8 @@ func success() -> void:
 
 # 游戏失败触发的逻辑
 func fail() -> void:
-	restart_game()
+	pass
+	#restart_game()
 
 # 彻底重新开始（返回第一轮或重载关卡）
 func restart_game() -> void:

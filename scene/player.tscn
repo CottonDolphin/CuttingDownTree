@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://cfqtcfji4apad"]
 
 [ext_resource type="Script" uid="uid://ct8sry7lngybh" path="res://script/player.gd" id="1_xo3ru"]
+[ext_resource type="PackedScene" uid="uid://i3n0h6ckijnq" path="res://scene/backpack.tscn" id="2_hjaqi"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_ycms6"]
 
@@ -34,5 +35,7 @@ debug_color = Color(0.0310761, 0.6233337, 0.5227305, 0.41960785)
 
 [node name="EuipmentHolder" type="Node3D" parent="." unique_id=69575556]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0.7331219, 0.86702824, -0.37509346)
+
+[node name="Backpack" parent="." unique_id=1724205858 instance=ExtResource("2_hjaqi")]
 
 [connection signal="area_entered" from="HitBox" to="." method="_on_hit_box_area_entered"]

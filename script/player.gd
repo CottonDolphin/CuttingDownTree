@@ -4,6 +4,9 @@ extends CharacterBody3D
 
 @export var gravity: float = 10
 
+# 被击退速率
+var knockback_velocity: Vector3 = Vector3.ZERO
+
 @export_group("玩家生命值")
 @export var hp:float = 100.0
 
@@ -14,8 +17,7 @@ extends CharacterBody3D
 @export	var accel_speed:float = 2.0 
 var current_acceleration_rate:float = 1
 
-@export_category("玩家背包")
-@export var backpack:Dictionary[String, int] = {}
+
 
 @export_category("玩家持有装备")
 @export var holding_euipment:Node3D
@@ -25,11 +27,14 @@ var current_equipment_type:int = EquipmentData.EquipmentType.TREE_CUTTING
 #装备栏
 var equipment_bar:Dictionary = {}
 
+
 #装备挂载的节点
 @onready var equipment_holder:Node3D = $EuipmentHolder
 
-# 被击退速率
-var knockback_velocity: Vector3 = Vector3.ZERO
+
+# 玩家背包
+@onready var backpack:BackPack = $Backpack
+
 
 # 移动玩家朝向
 func move_angle() -> void:
@@ -93,7 +98,7 @@ func speed_up(delta:float) -> void:
 	current_acceleration_rate = move_toward(current_acceleration_rate, target_rate, accel_speed * delta)
 
 ## 加载并装备指定 ID 的装备
-func load_equipment(equipment_id: String) -> void:
+func load_equipment(equipment_id: String) -> Equipment:
 	# 1. 查数据
 	if not EquipmentData.database.has(equipment_id):
 		push_error("装备不存在: " + equipment_id)
@@ -111,7 +116,7 @@ func load_equipment(equipment_id: String) -> void:
 		push_error("装备场景加载失败: " + data.scene_path)
 		return
 	
-	var instance: Node = scene.instantiate()
+	var instance: Equipment = scene.instantiate()
 	
 	# 5. 记录并初始化
 	equipment_bar[equip_type] = instance
@@ -119,6 +124,8 @@ func load_equipment(equipment_id: String) -> void:
 	
 	print("已装备: ", data.name)
 	#_apply_stats(data.stats, true)
+	
+	return instance
 
 ## 卸载指定类型的装备
 func unload_equipment(equip_type: int) -> void:
@@ -142,7 +149,7 @@ func put_on_equipment(equipment: Equipment) -> Equipment:
 	holding_euipment = equipment
 	if holding_euipment:
 		holding_euipment.is_holided = true
-	
+		
 	
 	return old_equipment
 
@@ -183,21 +190,6 @@ func use_item() -> void:
 	if Input.is_action_just_pressed("use_equipment"):
 		holding_euipment.use_item(self)
 
-# 收集资源
-func collect_resource(resource_name:String) -> void:
-	var current_num:int = backpack.get_or_add(resource_name,0)
-	backpack[resource_name] = current_num + 1
-	print("玩家当前资源:",backpack)
-
-# 获取玩家身上资源的数量 
-func get_resource_count(resource_name:String) -> int:
-	return backpack.get(resource_name,0)
-
-# 清空玩家身上的资源
-func take_all_resource(resource_name:String) -> int:
-	var total_resource_count:int = get_resource_count(resource_name)
-	backpack.set(resource_name,0)
-	return total_resource_count
 
 # 受到攻击
 func get_hit(damage:float) -> void:
@@ -216,13 +208,13 @@ func _physics_process(delta: float) -> void:
 	
 	#处理玩家移动
 	move(delta)	
-	
-	
-	
+		
 		
 func _ready() -> void:
-	load_equipment("axe")
-	put_on_equipment(equipment_bar.get(EquipmentData.EquipmentType.TREE_CUTTING))	
+	
+	
+	var axe:Equipment = load_equipment("axe")
+	put_on_equipment(axe)	
 	
 	load_equipment("bomb")
 	
