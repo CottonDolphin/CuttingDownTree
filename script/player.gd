@@ -2,7 +2,7 @@
 class_name Player
 extends CharacterBody3D
 
-const PUSH_FORCE := 2.0
+@export var gravity: float = 10
 
 @export_group("玩家生命值")
 @export var hp:float = 100.0
@@ -28,6 +28,9 @@ var equipment_bar:Dictionary = {}
 #装备挂载的节点
 @onready var equipment_holder:Node3D = $EuipmentHolder
 
+# 被击退速率
+var knockback_velocity: Vector3 = Vector3.ZERO
+
 # 移动玩家朝向
 func move_angle() -> void:
 	var target_pos: Vector3 = get_mouse_3d_position()
@@ -52,7 +55,16 @@ func get_mouse_3d_position() -> Vector3:
 	
 
 # 移动
-func move() -> void:
+func move(delta: float) -> void:
+	# 1. 应用重力（当玩家不在地面上时，持续施加向下拉的力量）
+	if not is_on_floor():
+		velocity.y -= gravity * delta
+	else:
+		# 如果已经在地面上，重置向下落的速度（避免重力无限叠加）
+		if velocity.y < 0:
+			velocity.y = 0
+	
+	
 	# 获取输入方向和处理移动/减速
 	var input_dir := Input.get_vector("left","right","forward","backward")
 	var direction := (transform.basis * Vector3(input_dir.x,0,input_dir.y)).normalized()
@@ -64,7 +76,13 @@ func move() -> void:
 		velocity.x = move_toward(velocity.x,0,speed)
 		velocity.z = move_toward(velocity.z,0,speed)
 		
+	# 融合普通移动速度与击退速度
+	var total_velocity = velocity + knockback_velocity
+	set_velocity(total_velocity)
 	move_and_slide()
+	
+	# 逐帧阻尼衰减击退效果（例如每秒衰减 90%）
+	knockback_velocity = knockback_velocity.move_toward(Vector3.ZERO, 30.0 * delta)
 
 # 玩家加速
 func speed_up(delta:float) -> void:
@@ -178,10 +196,14 @@ func get_hit(damage:float) -> void:
 		pass
 
 
+
+func apply_knockback(force: Vector3) -> void:
+	knockback_velocity += force
+
 func _physics_process(delta: float) -> void:
 	
 	#处理玩家移动
-	move()	
+	move(delta)	
 	
 	
 	

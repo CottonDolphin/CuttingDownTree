@@ -79,6 +79,7 @@ switch_equipment={
 3d_physics/layer_5="Resource"
 3d_physics/layer_6="Building"
 3d_physics/layer_7="Enemy"
+3d_physics/layer_8="Explode"
 
 [navigation]
 

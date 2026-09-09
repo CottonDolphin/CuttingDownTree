@@ -1,12 +1,21 @@
 [gd_scene format=3 uid="uid://djh4irod0ic2u"]
 
-[ext_resource type="Script" uid="uid://cf8vunew2dtqh" path="res://scene/equipment/consumables/bomb.gd" id="1_mm3jm"]
+[ext_resource type="Script" uid="uid://cf8vunew2dtqh" path="res://script/equipment/consumables/bomb.gd" id="1_mm3jm"]
+[ext_resource type="Script" uid="uid://crwp38x2q1fef" path="res://script/damage_area.gd" id="2_38qst"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_mm3jm"]
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_ycms6"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mm3jm"]
+resource_local_to_scene = true
 
 [sub_resource type="SphereMesh" id="SphereMesh_ycms6"]
+resource_local_to_scene = true
+material = SubResource("StandardMaterial3D_mm3jm")
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_ycms6"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_re86y"]
+radius = 10.0
 
 [node name="BombBase" type="RigidBody3D" unique_id=1988590840]
 collision_layer = 8
@@ -14,13 +23,27 @@ collision_mask = 127
 physics_material_override = SubResource("PhysicsMaterial_mm3jm")
 script = ExtResource("1_mm3jm")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1860563405]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
-shape = SubResource("SphereShape3D_ycms6")
-disabled = true
-
 [node name="Visuals" type="Node3D" parent="." unique_id=1806566967]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Visuals" unique_id=773817761]
 mesh = SubResource("SphereMesh_ycms6")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1860563405]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("SphereShape3D_ycms6")
+disabled = true
+
+[node name="DamageArea" type="Area3D" parent="." unique_id=1167275112]
+collision_layer = 128
+collision_mask = 70
+script = ExtResource("2_38qst")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DamageArea" unique_id=934027829]
+shape = SubResource("SphereShape3D_re86y")
+disabled = true
+
+[node name="Timer" type="Timer" parent="." unique_id=1131930605]
+wait_time = 5.0
+
+[connection signal="timeout" from="Timer" to="." method="explode"]
