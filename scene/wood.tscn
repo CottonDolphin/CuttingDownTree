@@ -15,7 +15,7 @@ size = Vector3(1.5, 1, 1.5)
 
 [node name="Wood" type="RigidBody3D" unique_id=1018192159]
 collision_layer = 16
-collision_mask = 31
+collision_mask = 159
 physics_material_override = SubResource("PhysicsMaterial_tfhct")
 script = ExtResource("1_k6sh8")
 

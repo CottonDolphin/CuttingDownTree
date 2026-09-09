@@ -98,6 +98,11 @@ func knockback() -> void:
 		if target == self:
 			continue
 			
+		# 忽略玩家持有的装备
+		if target is Equipment:
+			if target.is_holided:
+				continue
+			
 		# 计算从炸弹指向目标的向量
 		var direction: Vector3 = target.global_position - global_position
 		var distance: float = direction.length()

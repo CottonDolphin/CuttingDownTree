@@ -133,17 +133,29 @@ func unload_equipment(equip_type: int) -> void:
 
 # 将装备装上
 # 将装备装上，返回被替换下来的旧装备（不销毁实例）
-func put_on_equipment(equipment: Node) -> Node:
-	var old_equipment: Node = null
+func put_on_equipment(equipment: Equipment) -> Equipment:
+	# 脱下原有装备	
+	var old_equipment: Equipment = take_off_equipment()
+
+	# 装入新装备
+	equipment_holder.add_child(equipment)
+	holding_euipment = equipment
+	if holding_euipment:
+		holding_euipment.is_holided = true
+	
+	
+	return old_equipment
+
+# 脱下装备
+func take_off_equipment() -> Equipment:
+	var old_equipment: Equipment = null
 	
 	# 如果当前已有装备，先移出（不销毁）
 	if equipment_holder.get_child_count() > 0:
 		old_equipment = equipment_holder.get_child(0)
 		equipment_holder.remove_child(old_equipment)
-	
-	# 装入新装备
-	equipment_holder.add_child(equipment)
-	holding_euipment = equipment
+		
+		old_equipment.is_holided = false
 	
 	return old_equipment
 

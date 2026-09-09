@@ -1,5 +1,5 @@
 class_name Weapon 
-extends Node
+extends Equipment
 
 @export var attack_power:float = 10
 
