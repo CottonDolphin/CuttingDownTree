@@ -97,7 +97,7 @@ func speed_up(delta:float) -> void:
 	# 让倍率平滑向目标值移动
 	current_acceleration_rate = move_toward(current_acceleration_rate, target_rate, accel_speed * delta)
 
-## 加载并装备指定 ID 的装备
+## 加载指定 ID 的装备
 func load_equipment(equipment_id: String) -> Equipment:
 	# 1. 查数据
 	if not EquipmentData.database.has(equipment_id):
@@ -138,17 +138,18 @@ func unload_equipment(equip_type: int) -> void:
 		equipment_bar.erase(equip_type)
 		#print("已卸下: ", old_data.name)
 
-# 将装备装上
 # 将装备装上，返回被替换下来的旧装备（不销毁实例）
 func put_on_equipment(equipment: Equipment) -> Equipment:
 	# 脱下原有装备	
 	var old_equipment: Equipment = take_off_equipment()
 
 	# 装入新装备
-	equipment_holder.add_child(equipment)
-	holding_euipment = equipment
-	if holding_euipment:
-		holding_euipment.is_holided = true
+	if equipment:
+		equipment_holder.add_child(equipment)
+		holding_euipment = equipment
+		if holding_euipment:
+			holding_euipment.is_holided = true
+			holding_euipment.freeze = true
 		
 	
 	return old_equipment
