@@ -7,6 +7,9 @@ var round:int = 1
 #玩家
 @export var player:Player
 
+#游戏地图
+@onready var map:Map = $Environment/Map
+
 #关卡计时器
 @onready var timer:Timer = $Timer
 
@@ -38,7 +41,10 @@ func start_game() -> void:
 	GameManager.update_target_amount(round_target)
 	#开始计时
 	start_game_timer(round_time)
-
+	#重新生成地图
+	if round > 1:
+		map.reset_map()
+	
 # 更新关卡数据
 func update_level_data() -> void:
 	#round_target = init_target + plus_target * (round - 1)
@@ -68,7 +74,6 @@ func success() -> void:
 	
 	# 2. 清空本轮已交的木头数据
 	GameManager.reset_wood_data() 
-	
 	
 	# 3. 重新计算并启动下一轮
 	start_game()

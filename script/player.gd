@@ -138,10 +138,10 @@ func unload_equipment(equip_type: int) -> void:
 		equipment_bar.erase(equip_type)
 		#print("已卸下: ", old_data.name)
 
-# 将装备装上，返回被替换下来的旧装备（不销毁实例）
-func put_on_equipment(equipment: Equipment) -> Equipment:
+# 将装备加入场景节点
+func add_equipment_to_tree(equipment: Equipment) -> Equipment:
 	# 脱下原有装备	
-	var old_equipment: Equipment = take_off_equipment()
+	var old_equipment: Equipment = remove_equipment_from_tree()
 
 	# 装入新装备
 	if equipment:
@@ -154,8 +154,8 @@ func put_on_equipment(equipment: Equipment) -> Equipment:
 	
 	return old_equipment
 
-# 脱下装备
-func take_off_equipment() -> Equipment:
+# 将装备从场景节点移除
+func remove_equipment_from_tree() -> Equipment:
 	var old_equipment: Equipment = null
 	
 	# 如果当前已有装备，先移出（不销毁）
@@ -167,11 +167,17 @@ func take_off_equipment() -> Equipment:
 	
 	return old_equipment
 
+# 穿上装备
+func put_on_equipment(equipment_id: String) -> void:
+	var equipment:Equipment = load_equipment(equipment_id)
+	add_equipment_to_tree(equipment)
+
+
 # 切换装备
 func switch_equipment() -> void:
 	var type_num:int = EquipmentData.EquipmentType.size()
 	current_equipment_type = (current_equipment_type + 1) % type_num
-	put_on_equipment(equipment_bar.get(current_equipment_type))
+	add_equipment_to_tree(equipment_bar.get(current_equipment_type))
 
 # 使用装备
 func use_euipment() -> void:
@@ -212,10 +218,8 @@ func _physics_process(delta: float) -> void:
 		
 		
 func _ready() -> void:
-	
-	
-	var axe:Equipment = load_equipment("axe")
-	put_on_equipment(axe)	
+	# 穿上斧头
+	put_on_equipment("axe")	
 	
 	load_equipment("bomb")
 	

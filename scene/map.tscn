@@ -12,3 +12,5 @@ script = ExtResource("1_rgtto")
 navigation_mesh = SubResource("NavigationMesh_ycms6")
 
 [node name="BirthPlace" parent="NavigationRegion3D" unique_id=1733137656 instance=ExtResource("2_wpp1k")]
+
+[node name="RandomBlocks" type="Node3D" parent="NavigationRegion3D" unique_id=1366688906]

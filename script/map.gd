@@ -25,6 +25,8 @@ var blocks:Array[bool]
 #导航区域
 @onready var nav_region:NavigationRegion3D = $NavigationRegion3D
 
+#随机生成板块
+@onready var random_blocks:Node3D = $NavigationRegion3D/RandomBlocks
 
 # 应用配置
 static func apply_config(config:Dictionary) -> void:
@@ -64,6 +66,8 @@ func set_birth_place_pos() -> void:
 
 # 初始化板块信息
 func init_blocks() -> void:
+	#清空原来的板块信息
+	blocks.clear()
 	for r in range(rows_num):
 		for c in range(cols_num):
 			blocks.append(false)
@@ -127,7 +131,7 @@ func generate_block(block_script:GDScript,block_scene: PackedScene,r: int, c: in
 		set_block_pos(block, r, c)
 		
 		# 将板块添加到节点树
-		nav_region.add_child(block)
+		random_blocks.add_child(block)
 
 
 # 检查当前板块是否可以放入地图
@@ -177,10 +181,8 @@ func set_block_pos(block:Block,row:int,col:int) -> void:
 	block.position.x = (current_col - birth_place_col) * ground.mesh.size.x
 	block.position.y = birth_place.position.y
 
-
-
-func _ready() -> void:
-	
+# 生成地图
+func generate() -> void:
 	#根据地图的长和宽将blocks填充对应数量的false,表示当前没有板块
 	init_blocks()
 	
@@ -192,6 +194,19 @@ func _ready() -> void:
 	
 	#烘焙导航网格
 	nav_region.bake_navigation_mesh(true)
+
+# 重置地图
+func reset_map() -> void:
+	#清空随机生成的板块
+	for child in random_blocks.get_children():
+		child.queue_free()
+
+	#重新生成随机板块
+	generate()
+
+func _ready() -> void:
+	generate()
+	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
