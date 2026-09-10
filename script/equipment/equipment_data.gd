@@ -11,13 +11,13 @@ enum EquipmentType {
 # 装备数据库（实际项目中可从 JSON 文件加载）
 var database: Dictionary = {
 	"axe": {
-		"name": "斧头",
+		"name": "axe",
 		"type": EquipmentType.TREE_CUTTING,
 		"scene_path": "res://scene/equipment/tree cutting tools/axe.tscn",
 		"stats": {"attack": 10, "speed": -2}
 	},
 	"bomb": {
-		"name": "炸弹",
+		"name": "bomb",
 		"type": EquipmentType.COUSUMABLE,
 		"scene_path": "res://scene/equipment/consumables/bomb.tscn",
 		"stats": {"attack": 10, "speed": -2}

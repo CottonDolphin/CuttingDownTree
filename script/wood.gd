@@ -17,5 +17,5 @@ func _on_area_3d_body_entered(body: Node3D) -> void:
 	# 当玩家进入范围时
 	print("木材被碰到了")
 	if body is Player:
-		body.backpack.collect_resource(resource_type)
+		body.backpack.add_items(resource_type,1)
 		queue_free()

@@ -14,17 +14,24 @@ var empty_grid_index:int = 0
 @export var backpack_limit:int = 8
 
 # 单格资源上限
-@export var resource_limit:int = 5
+@export var single_grid_limit:int = 5
 
 # 添加到新格子中
-func add_to_new_grid(index_array:Array) -> void:
-	if empty_grid_index > -1 and empty_grid_index < backpack_limit:
-		backpack_grids[empty_grid_index] += 1
-		index_array.append(empty_grid_index)
-		if backpack_grids[empty_grid_index] == 1:
-			empty_grid_index = get_empty_grid_index()
-	else:
-		print("背包已满")
+func add_to_new_grid(index_array:Array,item_num:int) -> void:
+	while item_num > 0:
+		if empty_grid_index > -1 and empty_grid_index < backpack_limit:
+			#当添加数量小于单个格子数量限制时，直接添加
+			if item_num <= single_grid_limit:
+				backpack_grids[empty_grid_index] += item_num
+				item_num = 0
+			else:
+				#将单个格子填满，然后继续找下个格子
+				item_num -= single_grid_limit
+				backpack_grids[empty_grid_index] += single_grid_limit
+			index_array.append(empty_grid_index)
+			empty_grid_index = get_empty_grid_index()				
+		else:
+			print("背包已满")
 
 # 获取空格序号
 func get_empty_grid_index() -> int:
@@ -35,41 +42,51 @@ func get_empty_grid_index() -> int:
 			break
 	return index
 
-# 收集资源
-func collect_resource(resource_name:String) -> void:
+# 获得物品
+func add_items(item_name:String,item_num:int) -> void:
 	print("empty_grid_index:",empty_grid_index)
-	var current_resource_indexs:Array = backpack.get(resource_name,[])
+	var current_item_indexs:Array = backpack.get(item_name,[])
 	
 	# 如果背包中没有该资源，尝试添加到新的格子
-	if current_resource_indexs.is_empty():
-		add_to_new_grid(current_resource_indexs)
+	if current_item_indexs.is_empty():
+		add_to_new_grid(current_item_indexs,item_num)
 	else:
-		var is_add:bool = false
-		for index in current_resource_indexs:
+		for index in current_item_indexs:
 			var num:int = backpack_grids.get(index)
-			if num < resource_limit:
-				num += 1
-				backpack_grids.set(index,num)
-				is_add = true
-		# 如果没有添加到现有的格子中，尝试添加到新的格子
-		if not is_add:
-			add_to_new_grid(current_resource_indexs)
-	backpack.set(resource_name,current_resource_indexs)		
+			if num < single_grid_limit:
+				var empty_space:int = single_grid_limit - num
+				
+				#如果要放置的数量大于剩余空间
+				if item_num > empty_space:
+					backpack_grids.set(index,single_grid_limit)
+				else:
+					backpack_grids.set(index,num + item_num)
+				
+				#将要放置的数量减去剩余空间,得到剩下需要放置的数量
+				item_num = max(0,item_num - empty_space)
+			#当放置的数量为0时，退出循环
+			if item_num == 0:
+				break
+			
+		# 如果添加到现有的格子中之后还有剩余，尝试添加到新的格子
+		if item_num > 0:
+			add_to_new_grid(current_item_indexs,item_num)
+	backpack.set(item_name,current_item_indexs)		
 	print("backpack:",backpack)
 	print("backpack_grids:",backpack_grids)
 	
 
-# 获取玩家身上资源的数量 
-func get_resource_count(resource_name:String) -> int:
+# 获取玩家身上物品的数量 
+func get_item_count(item_name:String) -> int:
 	var total_num:int = 0
-	var current_resource_indexs:Array = backpack.get(resource_name,[])
-	for index in current_resource_indexs:
+	var current_item_indexs:Array = backpack.get(item_name,[])
+	for index in current_item_indexs:
 		total_num += backpack_grids[index]
 	return total_num
 
 # 清空玩家身上的资源
 func take_all_resource(resource_name:String) -> int:
-	var total_resource_count:int = get_resource_count(resource_name)
+	var total_resource_count:int = get_item_count(resource_name)
 	var current_resource_indexs:Array = backpack.get(resource_name,[])
 	for index in current_resource_indexs:
 		backpack_grids[index] = 0

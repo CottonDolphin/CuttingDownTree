@@ -120,7 +120,7 @@ func load_equipment(equipment_id: String) -> Equipment:
 	
 	# 5. 记录并初始化
 	equipment_bar[equip_type] = instance
-	#instance.set_equipment_data(data)  # 如果装备脚本有这个方法
+	instance.set_equipment_data(data)  # 如果装备脚本有这个方法
 	
 	print("已装备: ", data.name)
 	#_apply_stats(data.stats, true)
@@ -195,8 +195,10 @@ func attack() -> void:
 # 使用道具
 func use_item() -> void:
 	if Input.is_action_just_pressed("use_equipment"):
-		holding_euipment.use_item(self)
-
+		if backpack.get_item_count(holding_euipment.name) > 0:
+			holding_euipment.use_item(self)
+		else:
+			print("背包中没有该道具")
 
 # 受到攻击
 func get_hit(damage:float) -> void:

@@ -13,7 +13,7 @@ func deposit_wood() -> void:
 	
 	# 检查玩家身上是否有木头
 	var backpack:BackPack = current_player.backpack
-	if backpack and backpack.get_resource_count("wood") > 0:
+	if backpack and backpack.get_item_count("wood") > 0:
 		var wood_amount = backpack.take_all_resource("wood")
 		
 		# 提交到全局单例或得分系统
