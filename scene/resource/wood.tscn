@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://b37rsb3ixac7q"]
 
-[ext_resource type="Script" uid="uid://eu3mqebqf2kp" path="res://script/wood.gd" id="1_k6sh8"]
+[ext_resource type="Script" uid="uid://eu3mqebqf2kp" path="res://script/wood.gd" id="1_u3bij"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_tfhct"]
 
@@ -17,7 +17,7 @@ size = Vector3(1.5, 1, 1.5)
 collision_layer = 16
 collision_mask = 159
 physics_material_override = SubResource("PhysicsMaterial_tfhct")
-script = ExtResource("1_k6sh8")
+script = ExtResource("1_u3bij")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1621712497]
 mesh = SubResource("BoxMesh_k6sh8")

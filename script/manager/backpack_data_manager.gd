@@ -1,6 +1,6 @@
-# 背包窗口
-class_name BackPack
-extends Control
+class_name BackpackDataManager
+extends RefCounted
+
 
 @export_category("玩家背包")
 @export var backpack:Dictionary[String,Array] = {}
@@ -19,19 +19,33 @@ var stack_limit:int = 1
 # 单格资源上限
 @export var single_grid_limit:int = 99
 
+# 填充新格子的信号
+signal fill_new_slot(slot_index: int, item_data: Dictionary,increase_num:int)
+
+
+
 # 添加到新格子中
-func add_to_new_grid(index_array:Array,item_num:int) -> void:
+func add_to_new_grid(index_array:Array,item_data:Dictionary,item_num:int) -> void:
 	while item_num > 0:
 		if empty_grid_index > -1 and empty_grid_index < backpack_limit:
 			#当添加数量小于单个格子数量限制时，直接添加
+			var increase_num:int = 0
 			if item_num <= stack_limit:
 				backpack_grids[empty_grid_index] += item_num
+				increase_num = item_num
 				item_num = 0
 			else:
 				#将单个格子填满，然后继续找下个格子
 				item_num -= stack_limit
 				backpack_grids[empty_grid_index] += stack_limit
+				increase_num = stack_limit
+				
+			
 			index_array.append(empty_grid_index)
+			
+			fill_new_slot.emit(empty_grid_index,item_data,increase_num)
+			
+			
 			empty_grid_index = get_empty_grid_index()				
 		else:
 			print("背包已满")
@@ -46,13 +60,14 @@ func get_empty_grid_index() -> int:
 	return index
 
 # 获得物品
-func add_items(item_name:String,item_num:int) -> void:
+func add_items(item_data:Dictionary,item_num:int) -> void:
 	print("empty_grid_index:",empty_grid_index)
+	var item_name:String = item_data.name
 	var current_item_indexs:Array = backpack.get(item_name,[])
 	
 	# 如果背包中没有该资源，尝试添加到新的格子
 	if current_item_indexs.is_empty():
-		add_to_new_grid(current_item_indexs,item_num)
+		add_to_new_grid(current_item_indexs,item_data,item_num)
 	else:
 		for index in current_item_indexs:
 			var num:int = backpack_grids.get(index)
@@ -73,22 +88,38 @@ func add_items(item_name:String,item_num:int) -> void:
 			
 		# 如果添加到现有的格子中之后还有剩余，尝试添加到新的格子
 		if item_num > 0:
-			add_to_new_grid(current_item_indexs,item_num)
+			add_to_new_grid(current_item_indexs,item_data,item_num)
 	backpack.set(item_name,current_item_indexs)		
 	print("backpack:",backpack)
 	print("backpack_grids:",backpack_grids)
 	
 # 获得可叠加的物品
-func add_stackable_item(item_name:String,item_num:int) -> void:
+func add_stackable_item(item_data:Dictionary,item_num:int) -> void:
 	if stack_limit != single_grid_limit:
 		stack_limit = single_grid_limit
-	add_items(item_name,item_num)
+	add_items(item_data,item_num)
 
 # 获得不可叠加的物品
-func add_unstackable_item(item_name:String,item_num:int) -> void:
+func add_unstackable_item(item_data:Dictionary,item_num:int) -> void:
 	if stack_limit != 1:
 		stack_limit = 1
-	add_items(item_name,item_num)
+	add_items(item_data,item_num)
+
+
+# 拾取物品
+func pick_up_item(item_data:Dictionary,item_num:int):
+	#判断是否为独占一格的装备
+	var item_name:String = item_data.name
+	if EquipmentData.database.has(item_data):
+		if not item_data.is_stackable:
+			add_unstackable_item(item_data,item_num)
+		else:
+			add_stackable_item(item_data,item_num)	
+		
+	else:			
+		add_stackable_item(item_data,item_num)
+	
+	
 
 # 使用物品
 func use_item(item_name:String) -> void:
@@ -122,6 +153,9 @@ func take_all_resource(resource_name:String) -> int:
 	empty_grid_index = get_empty_grid_index()
 	return total_resource_count
 
-func _ready() -> void:
+
+
+func _init() -> void:
+
 	backpack_grids.resize(backpack_limit)
 	backpack_grids.fill(0)

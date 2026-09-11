@@ -1,0 +1,24 @@
+[gd_scene format=3 uid="uid://b0q6j4hh0djl"]
+
+[ext_resource type="Script" uid="uid://cht7c323d2216" path="res://script/ui/backpack/backpack_slot.gd" id="1_ew1wu"]
+[ext_resource type="Texture2D" uid="uid://csvbwvosw1hrc" path="res://assets/icon/resource/wood.png" id="2_iap73"]
+
+[node name="BackpackSlot" type="Button" unique_id=1931957793]
+custom_minimum_size = Vector2(80, 80)
+anchors_preset = -1
+anchor_right = 0.2855903
+anchor_bottom = 0.49845678
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ew1wu")
+metadata/_edit_use_anchors_ = true
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=1585510539]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_iap73")
+expand_mode = 1

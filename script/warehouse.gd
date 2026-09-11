@@ -8,13 +8,16 @@ var current_player: Player = null
 
 
 func deposit_wood() -> void:
-	if current_player == null or current_player.backpack == null:
+	if current_player == null:
 		return
 	
+	var backpack_data_manager:BackpackDataManager = current_player.backpack_data_manager
+	if backpack_data_manager == null:
+		return
+		
 	# 检查玩家身上是否有木头
-	var backpack:BackPack = current_player.backpack
-	if backpack and backpack.get_item_count("wood") > 0:
-		var wood_amount = backpack.take_all_resource("wood")
+	if backpack_data_manager.get_item_count("wood") > 0:
+		var wood_amount = backpack_data_manager.take_all_resource("wood")
 		
 		# 提交到全局单例或得分系统
 		GameManager.update_collected_amount(wood_amount)

@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://dx3aorur1sf4y"]
 
 [ext_resource type="Script" uid="uid://dk71xurths2r2" path="res://script/tree.gd" id="1_dcgk5"]
-[ext_resource type="PackedScene" uid="uid://b37rsb3ixac7q" path="res://scene/wood.tscn" id="2_lutej"]
+[ext_resource type="PackedScene" uid="uid://b37rsb3ixac7q" path="res://scene/resource/wood.tscn" id="2_lutej"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_ycms6"]
 size = Vector3(2, 5, 2)

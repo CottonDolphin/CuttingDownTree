@@ -32,31 +32,13 @@ var equipment_bar:Dictionary = {}
 @onready var equipment_holder:Node3D = $EuipmentHolder
 
 
-# 玩家背包
-@onready var backpack:BackPack = $Backpack
+# 玩家背包数据管理
+var backpack_data_manager:BackpackDataManager
 
-# 玩家初始化
-func init_player() -> void:
-	#添加到背包
-	add_to_backpack("axe",1)
-	
-	add_to_backpack("bomb",5)
+# 玩家背包UI
+@onready var backpack_ui:BackPackUI = $Backpack
 
-# 添加到背包
-func add_to_backpack(item_name,item_num) -> void:
-	#判断是否为独占一格的装备
-	if EquipmentData.database.has(item_name):
-		var data:Dictionary = EquipmentData.database.get(item_name)
-		if not data.is_stackable:
-			backpack.add_unstackable_item(item_name,item_num)
-		else:
-			backpack.add_stackable_item(item_name,item_num)	
-		if not equipment_bar.has(data.type):
-			#如果当前没有装备过该类型的装备，加载到装备栏中
-			put_on_equipment(item_name)
-	else:			
-		backpack.add_stackable_item(item_name,item_num)
-	
+
 # 移动玩家朝向
 func move_angle() -> void:
 	var target_pos: Vector3 = get_mouse_3d_position()
@@ -194,12 +176,22 @@ func put_on_equipment(equipment_id: String) -> void:
 	if current_equipment_type == equipment.type:
 		add_equipment_to_tree(equipment)
 
-
 # 切换装备
 func switch_equipment() -> void:
 	var type_num:int = EquipmentData.EquipmentType.size()
 	current_equipment_type = (current_equipment_type + 1) % type_num
 	add_equipment_to_tree(equipment_bar.get(current_equipment_type))
+
+# 添加到背包
+func add_to_backpack(item_data:Dictionary,item_num:int) -> void:
+	#判断是否为独占一格的装备
+	var item_name:String = item_data.name
+	backpack_data_manager.pick_up_item(item_data,item_num)
+	if EquipmentData.database.has(item_name):
+		if not equipment_bar.has(item_data.type):
+			#如果当前没有装备过该类型的装备，加载到装备栏中
+			put_on_equipment(item_name)
+
 
 # 使用装备
 func use_euipment() -> void:
@@ -217,9 +209,9 @@ func attack() -> void:
 # 使用道具
 func use_item() -> void:
 	if Input.is_action_just_pressed("use_equipment"):
-		if backpack.get_item_count(holding_euipment.name) > 0:
+		if backpack_data_manager.get_item_count(holding_euipment.name) > 0:
 			holding_euipment.use_item(self)
-			backpack.use_item(holding_euipment.name)
+			backpack_data_manager.use_item(holding_euipment.name)
 		else:
 			print("背包中没有该道具")
 
@@ -243,9 +235,17 @@ func _physics_process(delta: float) -> void:
 		
 		
 func _ready() -> void:
+
+	#实例化背包数据管理器
+	backpack_data_manager = BackpackDataManager.new()
 	
-	#玩家初始化
-	init_player()
+	#将背包管理器的信号连接到UI的方法
+	backpack_data_manager.fill_new_slot.connect(backpack_ui._on_fill_new_slot)
+	
+	#添加到背包
+	add_to_backpack(EquipmentData.database.get("axe"),1)
+	
+	add_to_backpack(EquipmentData.database.get("bomb"),5)
 	
 	
 	

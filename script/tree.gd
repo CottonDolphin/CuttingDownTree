@@ -39,21 +39,21 @@ func spawn_wood(pos: Vector3) -> void:
 	if not wood_scene:
 		push_error("wood_scene 未赋值！")
 		return
-	var wood = wood_scene.instantiate()
+	var wood:Wood = wood_scene.instantiate()
 	get_parent().add_child(wood)
 	wood.global_position = pos
+	wood.data = ResourceData.database.get("wood")
 	# 给一点随机初始速度和旋转，让掉落更自然
-	if wood is RigidBody3D:
-		wood.linear_velocity = Vector3(
-			randf_range(-1, 1),
-			randf_range(2, 4),   # 向上抛一点
-			randf_range(-1, 1)
-		)
-		wood.angular_velocity = Vector3(
-			randf_range(-2, 2),
-			randf_range(-2, 2),
-			randf_range(-2, 2)
-		)
+	wood.linear_velocity = Vector3(
+		randf_range(-1, 1),
+		randf_range(2, 4),   # 向上抛一点
+		randf_range(-1, 1)
+	)
+	wood.angular_velocity = Vector3(
+		randf_range(-2, 2),
+		randf_range(-2, 2),
+		randf_range(-2, 2)
+	)
 	
 
 

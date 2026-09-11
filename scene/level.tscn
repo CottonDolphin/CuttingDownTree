@@ -8,7 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://cut30r7fes6lw" path="res://scene/timer.tscn" id="4_ismto"]
 [ext_resource type="PackedScene" uid="uid://d1xwt7q3c0ufb" path="res://scene/shop.tscn" id="5_bddx0"]
 [ext_resource type="PackedScene" uid="uid://cosgp4icrc20u" path="res://scene/setting.tscn" id="6_u2b8d"]
-[ext_resource type="Script" uid="uid://cpp36lvj8ej45" path="res://script/wood_counter.gd" id="10_ktmlt"]
+[ext_resource type="Script" uid="uid://cpp36lvj8ej45" path="res://script/ui/wood_counter.gd" id="10_ktmlt"]
 [ext_resource type="Script" uid="uid://bathjo118h2xp" path="res://script/timer_ui.gd" id="11_oxop7"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_bddx0"]
