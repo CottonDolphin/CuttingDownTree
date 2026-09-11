@@ -40,7 +40,7 @@ func init_player() -> void:
 	#添加到背包
 	add_to_backpack("axe",1)
 	
-	load_equipment("bomb")
+	add_to_backpack("bomb",5)
 
 # 添加到背包
 func add_to_backpack(item_name,item_num) -> void:
@@ -219,6 +219,7 @@ func use_item() -> void:
 	if Input.is_action_just_pressed("use_equipment"):
 		if backpack.get_item_count(holding_euipment.name) > 0:
 			holding_euipment.use_item(self)
+			backpack.use_item(holding_euipment.name)
 		else:
 			print("背包中没有该道具")
 

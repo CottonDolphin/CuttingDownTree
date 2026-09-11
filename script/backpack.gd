@@ -90,6 +90,19 @@ func add_unstackable_item(item_name:String,item_num:int) -> void:
 		stack_limit = 1
 	add_items(item_name,item_num)
 
+# 使用物品
+func use_item(item_name:String) -> void:
+	var current_item_indexs:Array = backpack.get(item_name,[])
+	for index in current_item_indexs:
+		var num:int = backpack_grids.get(index)
+		num -= 1
+		backpack_grids.set(index,num)
+		#当物品数量消耗为0，去除对应索引
+		if num == 0:
+			current_item_indexs.erase(index)
+		break
+	print("backpack:",backpack)
+	print("backpack_grids:",backpack_grids)
 	
 # 获取玩家身上物品的数量 
 func get_item_count(item_name:String) -> int:
