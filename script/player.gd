@@ -35,7 +35,28 @@ var equipment_bar:Dictionary = {}
 # 玩家背包
 @onready var backpack:BackPack = $Backpack
 
+# 玩家初始化
+func init_player() -> void:
+	#添加到背包
+	add_to_backpack("axe",1)
+	
+	load_equipment("bomb")
 
+# 添加到背包
+func add_to_backpack(item_name,item_num) -> void:
+	#判断是否为独占一格的装备
+	if EquipmentData.database.has(item_name):
+		var data:Dictionary = EquipmentData.database.get(item_name)
+		if not data.is_stackable:
+			backpack.add_unstackable_item(item_name,item_num)
+		else:
+			backpack.add_stackable_item(item_name,item_num)	
+		if not equipment_bar.has(data.type):
+			#如果当前没有装备过该类型的装备，加载到装备栏中
+			put_on_equipment(item_name)
+	else:			
+		backpack.add_stackable_item(item_name,item_num)
+	
 # 移动玩家朝向
 func move_angle() -> void:
 	var target_pos: Vector3 = get_mouse_3d_position()
@@ -170,7 +191,8 @@ func remove_equipment_from_tree() -> Equipment:
 # 穿上装备
 func put_on_equipment(equipment_id: String) -> void:
 	var equipment:Equipment = load_equipment(equipment_id)
-	add_equipment_to_tree(equipment)
+	if current_equipment_type == equipment.type:
+		add_equipment_to_tree(equipment)
 
 
 # 切换装备
@@ -220,10 +242,11 @@ func _physics_process(delta: float) -> void:
 		
 		
 func _ready() -> void:
-	# 穿上斧头
-	put_on_equipment("axe")	
 	
-	load_equipment("bomb")
+	#玩家初始化
+	init_player()
+	
+	
 	
 func _process(delta: float) -> void:
 	move_angle()

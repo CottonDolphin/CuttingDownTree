@@ -13,21 +13,24 @@ var empty_grid_index:int = 0
 # 背包上限
 @export var backpack_limit:int = 8
 
+# 物品存储上限
+var stack_limit:int = 1
+
 # 单格资源上限
-@export var single_grid_limit:int = 5
+@export var single_grid_limit:int = 99
 
 # 添加到新格子中
 func add_to_new_grid(index_array:Array,item_num:int) -> void:
 	while item_num > 0:
 		if empty_grid_index > -1 and empty_grid_index < backpack_limit:
 			#当添加数量小于单个格子数量限制时，直接添加
-			if item_num <= single_grid_limit:
+			if item_num <= stack_limit:
 				backpack_grids[empty_grid_index] += item_num
 				item_num = 0
 			else:
 				#将单个格子填满，然后继续找下个格子
-				item_num -= single_grid_limit
-				backpack_grids[empty_grid_index] += single_grid_limit
+				item_num -= stack_limit
+				backpack_grids[empty_grid_index] += stack_limit
 			index_array.append(empty_grid_index)
 			empty_grid_index = get_empty_grid_index()				
 		else:
@@ -53,12 +56,12 @@ func add_items(item_name:String,item_num:int) -> void:
 	else:
 		for index in current_item_indexs:
 			var num:int = backpack_grids.get(index)
-			if num < single_grid_limit:
-				var empty_space:int = single_grid_limit - num
+			if num < stack_limit:
+				var empty_space:int = stack_limit - num
 				
 				#如果要放置的数量大于剩余空间
 				if item_num > empty_space:
-					backpack_grids.set(index,single_grid_limit)
+					backpack_grids.set(index,stack_limit)
 				else:
 					backpack_grids.set(index,num + item_num)
 				
@@ -75,7 +78,19 @@ func add_items(item_name:String,item_num:int) -> void:
 	print("backpack:",backpack)
 	print("backpack_grids:",backpack_grids)
 	
+# 获得可叠加的物品
+func add_stackable_item(item_name:String,item_num:int) -> void:
+	if stack_limit != single_grid_limit:
+		stack_limit = single_grid_limit
+	add_items(item_name,item_num)
 
+# 获得不可叠加的物品
+func add_unstackable_item(item_name:String,item_num:int) -> void:
+	if stack_limit != 1:
+		stack_limit = 1
+	add_items(item_name,item_num)
+
+	
 # 获取玩家身上物品的数量 
 func get_item_count(item_name:String) -> int:
 	var total_num:int = 0

@@ -14,12 +14,14 @@ var database: Dictionary = {
 		"name": "axe",
 		"type": EquipmentType.TREE_CUTTING,
 		"scene_path": "res://scene/equipment/tree cutting tools/axe.tscn",
+		"is_stackable":false,
 		"stats": {"attack": 10, "speed": -2}
 	},
 	"bomb": {
 		"name": "bomb",
 		"type": EquipmentType.COUSUMABLE,
 		"scene_path": "res://scene/equipment/consumables/bomb.tscn",
+		"is_stackable":true,
 		"stats": {"attack": 10, "speed": -2}
 	}
 }
