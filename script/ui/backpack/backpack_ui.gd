@@ -19,7 +19,8 @@ func _on_fill_new_slot(slot_index: int, item_data: Dictionary,increase_num:int) 
 	var slot:BackpackSlot = backpack_slots.get(slot_index)
 	slot.fill_slot(item_data)
 	
-
+	# 更新显示数字
+	slot.update_number(increase_num)
 
 # 生成背包的格子
 func generate_slots() -> void:

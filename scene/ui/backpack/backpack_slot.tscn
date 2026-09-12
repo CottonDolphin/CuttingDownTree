@@ -1,7 +1,8 @@
 [gd_scene format=3 uid="uid://b0q6j4hh0djl"]
 
 [ext_resource type="Script" uid="uid://cht7c323d2216" path="res://script/ui/backpack/backpack_slot.gd" id="1_ew1wu"]
-[ext_resource type="Texture2D" uid="uid://csvbwvosw1hrc" path="res://assets/icon/resource/wood.png" id="2_iap73"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_ew1wu"]
 
 [node name="BackpackSlot" type="Button" unique_id=1931957793]
 custom_minimum_size = Vector2(80, 80)
@@ -13,12 +14,26 @@ grow_vertical = 2
 script = ExtResource("1_ew1wu")
 metadata/_edit_use_anchors_ = true
 
-[node name="TextureRect" type="TextureRect" parent="." unique_id=1585510539]
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=916852936]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("2_iap73")
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer" unique_id=1585510539]
+layout_mode = 2
 expand_mode = 1
+
+[node name="Label" type="Label" parent="MarginContainer" unique_id=1131062266]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+label_settings = SubResource("LabelSettings_ew1wu")
+horizontal_alignment = 2
+vertical_alignment = 1
