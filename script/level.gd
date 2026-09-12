@@ -72,8 +72,9 @@ func success() -> void:
 	# 1. 轮次 +1
 	round += 1
 	
-	# 2. 清空本轮已交的木头数据
-	GameManager.reset_wood_data() 
+	# 2. 结算每轮的数据
+	GameManager.sell_wood_for_gold()
+	
 	
 	# 3. 重新计算并启动下一轮
 	start_game()

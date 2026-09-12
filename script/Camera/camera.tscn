@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://mmnrm4wv6kkk"]
 
-[ext_resource type="Script" uid="uid://hhc3nta6b7i6" path="res://script/Camera/camera_rig.gd" id="1_yytf5"]
-[ext_resource type="Script" uid="uid://bp4kdot2gu3qu" path="res://script/Camera/camera_debug.gd" id="2_0fqex"]
-[ext_resource type="Script" uid="uid://cmry6e5rx3tk4" path="res://script/Camera/camera_utils.gd" id="3_we5x8"]
+[ext_resource type="Script" uid="uid://hhc3nta6b7i6" path="res://script/camera/camera_rig.gd" id="1_yytf5"]
+[ext_resource type="Script" uid="uid://bp4kdot2gu3qu" path="res://script/camera/camera_debug.gd" id="2_0fqex"]
+[ext_resource type="Script" uid="uid://cmry6e5rx3tk4" path="res://script/camera/camera_utils.gd" id="3_we5x8"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jjvhh"]
 albedo_color = Color(0.8493206, 0, 0.10647873, 1)
