@@ -22,6 +22,14 @@ func _on_fill_new_slot(slot_index: int, item_data: Dictionary,increase_num:int) 
 	# 更新显示数字
 	slot.update_number(increase_num)
 
+# 更新显示数字
+func _on_update_number(slot_index: int,current_num:int) -> void:
+	var slot:BackpackSlot = backpack_slots.get(slot_index)
+	if current_num <= 0:
+		slot.clear_slot()
+	else:
+		slot.update_number(current_num)
+
 # 生成背包的格子
 func generate_slots() -> void:
 	for i in grid_num:

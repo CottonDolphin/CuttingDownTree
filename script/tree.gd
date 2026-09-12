@@ -40,9 +40,10 @@ func spawn_wood(pos: Vector3) -> void:
 		push_error("wood_scene 未赋值！")
 		return
 	var wood:Wood = wood_scene.instantiate()
+	wood.data = ResourceData.database.get("wood")
 	get_parent().add_child(wood)
 	wood.global_position = pos
-	wood.data = ResourceData.database.get("wood")
+	
 	# 给一点随机初始速度和旋转，让掉落更自然
 	wood.linear_velocity = Vector3(
 		randf_range(-1, 1),

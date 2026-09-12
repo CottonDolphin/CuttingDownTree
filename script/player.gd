@@ -241,6 +241,7 @@ func _ready() -> void:
 	
 	#将背包管理器的信号连接到UI的方法
 	backpack_data_manager.fill_new_slot.connect(backpack_ui._on_fill_new_slot)
+	backpack_data_manager.update_number.connect(backpack_ui._on_update_number)
 	
 	#添加到背包
 	add_to_backpack(EquipmentData.database.get("axe"),1)

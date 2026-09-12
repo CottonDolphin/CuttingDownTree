@@ -22,7 +22,8 @@ var stack_limit:int = 1
 # 填充新格子的信号
 signal fill_new_slot(slot_index: int, item_data: Dictionary,increase_num:int)
 
-
+# 更新数字的信号
+signal update_number(slot_index: int,current_num:int)
 
 # 添加到新格子中
 func add_to_new_grid(index_array:Array,item_data:Dictionary,item_num:int) -> void:
@@ -75,10 +76,15 @@ func add_items(item_data:Dictionary,item_num:int) -> void:
 				var empty_space:int = stack_limit - num
 				
 				#如果要放置的数量大于剩余空间
+				var current_num:int = 0
 				if item_num > empty_space:
-					backpack_grids.set(index,stack_limit)
+					current_num = stack_limit
+					backpack_grids.set(index,current_num)
 				else:
-					backpack_grids.set(index,num + item_num)
+					current_num = num + item_num
+					backpack_grids.set(index,current_num)
+				update_number.emit(index,current_num)
+				
 				
 				#将要放置的数量减去剩余空间,得到剩下需要放置的数量
 				item_num = max(0,item_num - empty_space)
@@ -119,7 +125,6 @@ func pick_up_item(item_data:Dictionary,item_num:int):
 	else:			
 		add_stackable_item(item_data,item_num)
 	
-	
 
 # 使用物品
 func use_item(item_name:String) -> void:
@@ -128,8 +133,10 @@ func use_item(item_name:String) -> void:
 		var num:int = backpack_grids.get(index)
 		num -= 1
 		backpack_grids.set(index,num)
+		update_number.emit(index,num)
 		#当物品数量消耗为0，去除对应索引
 		if num == 0:
+			empty_grid_index = index
 			current_item_indexs.erase(index)
 		break
 	print("backpack:",backpack)
@@ -149,6 +156,7 @@ func take_all_resource(resource_name:String) -> int:
 	var current_resource_indexs:Array = backpack.get(resource_name,[])
 	for index in current_resource_indexs:
 		backpack_grids[index] = 0
+		update_number.emit(index,0)
 	current_resource_indexs.clear()
 	empty_grid_index = get_empty_grid_index()
 	return total_resource_count

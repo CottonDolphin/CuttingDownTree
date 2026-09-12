@@ -24,10 +24,18 @@ func fill_slot(data:Dictionary) -> void:
 
 # 修改显示数字
 func update_number(number:int) -> void:
-	if number <= 0:
+	if number < 0:
 		push_error("给定数字不合法") 
 	
-	if number == 1:
+	if number <= 1:
 		number_label.text = ""
 	else:
 		number_label.text = str(number)
+
+
+# 清空格子
+func clear_slot() -> void:
+	slot_data = {}
+	self.update_number(0)
+	is_filled = false
+	icon_slot.texture = null
