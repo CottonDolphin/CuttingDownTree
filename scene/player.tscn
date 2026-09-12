@@ -37,5 +37,6 @@ debug_color = Color(0.0310761, 0.6233337, 0.5227305, 0.41960785)
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0.7331219, 0.86702824, -0.37509346)
 
 [node name="Backpack" parent="." unique_id=1724205858 instance=ExtResource("2_hjaqi")]
+visible = false
 
 [connection signal="area_entered" from="HitBox" to="." method="_on_hit_box_area_entered"]

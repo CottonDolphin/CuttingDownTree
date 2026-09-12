@@ -182,6 +182,11 @@ func switch_equipment() -> void:
 	current_equipment_type = (current_equipment_type + 1) % type_num
 	add_equipment_to_tree(equipment_bar.get(current_equipment_type))
 
+# 打开背包
+func open_backpack() -> void:
+	backpack_ui.visible = ! backpack_ui.visible
+	
+
 # 添加到背包
 func add_to_backpack(item_data:Dictionary,item_num:int) -> void:
 	#判断是否为独占一格的装备
@@ -191,7 +196,6 @@ func add_to_backpack(item_data:Dictionary,item_num:int) -> void:
 		if not equipment_bar.has(item_data.type):
 			#如果当前没有装备过该类型的装备，加载到装备栏中
 			put_on_equipment(item_name)
-
 
 # 使用装备
 func use_euipment() -> void:
@@ -263,6 +267,11 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("switch_equipment"):
 		print("切换装备")
 		switch_equipment()
+		
+	# 打开背包
+	if event.is_action_pressed("open_backpack"):
+		print("打开背包")
+		open_backpack()
 	
 
 func _on_hit_box_area_entered(area: Area3D) -> void:
