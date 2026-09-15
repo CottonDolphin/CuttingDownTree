@@ -3,7 +3,8 @@
 [ext_resource type="Script" uid="uid://cx76s61akyrld" path="res://script/shop.gd" id="1_iuafe"]
 [ext_resource type="PackedScene" uid="uid://i3n0h6ckijnq" path="res://scene/ui/backpack/backpack.tscn" id="2_54il2"]
 [ext_resource type="Texture2D" uid="uid://c5twnc06r244x" path="res://assets/icon/resource/coin.png" id="2_cdrre"]
-[ext_resource type="PackedScene" uid="uid://plk1pg47hfkx" path="res://scene/ui/shop/product_slot.tscn" id="3_cdrre"]
+[ext_resource type="PackedScene" uid="uid://xqntilm08mdl" path="res://scene/ui/shop/all_products.tscn" id="3_cdrre"]
+[ext_resource type="PackedScene" uid="uid://plk1pg47hfkx" path="res://scene/ui/shop/product_slot.tscn" id="4_sfejf"]
 [ext_resource type="PackedScene" uid="uid://b0q6j4hh0djl" path="res://scene/ui/backpack/backpack_slot.tscn" id="5_cdrre"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_adv4m"]
@@ -87,33 +88,25 @@ layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/separation = 10
 
-[node name="AllProducts" type="MarginContainer" parent="MarginContainer/VBoxContainer/MarginContainer2/MainContain" unique_id=1414885555]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_stretch_ratio = 1.9
-
-[node name="GridContainer" type="GridContainer" parent="MarginContainer/VBoxContainer/MarginContainer2/MainContain/AllProducts" unique_id=250864307]
-layout_mode = 2
-theme_override_constants/h_separation = 20
-theme_override_constants/v_separation = 20
-columns = 3
-
-[node name="ProductSlotNew" parent="MarginContainer/VBoxContainer/MarginContainer2/MainContain/AllProducts/GridContainer" unique_id=1151323193 instance=ExtResource("3_cdrre")]
+[node name="AllProducts" parent="MarginContainer/VBoxContainer/MarginContainer2/MainContain" unique_id=443296211 instance=ExtResource("3_cdrre")]
 layout_mode = 2
 
-[node name="ProductSlotNew2" parent="MarginContainer/VBoxContainer/MarginContainer2/MainContain/AllProducts/GridContainer" unique_id=832488539 instance=ExtResource("3_cdrre")]
+[node name="ProductSlotNew" parent="MarginContainer/VBoxContainer/MarginContainer2/MainContain/AllProducts/MarginContainer/GridContainer" parent_id_path=PackedInt32Array(443296211, 1104986167) index="0" unique_id=1151323193 instance=ExtResource("4_sfejf")]
 layout_mode = 2
 
-[node name="ProductSlotNew3" parent="MarginContainer/VBoxContainer/MarginContainer2/MainContain/AllProducts/GridContainer" unique_id=922864659 instance=ExtResource("3_cdrre")]
+[node name="ProductSlotNew2" parent="MarginContainer/VBoxContainer/MarginContainer2/MainContain/AllProducts/MarginContainer/GridContainer" parent_id_path=PackedInt32Array(443296211, 1104986167) index="1" unique_id=535925713 instance=ExtResource("4_sfejf")]
 layout_mode = 2
 
-[node name="ProductSlotNew4" parent="MarginContainer/VBoxContainer/MarginContainer2/MainContain/AllProducts/GridContainer" unique_id=1763386923 instance=ExtResource("3_cdrre")]
+[node name="ProductSlotNew3" parent="MarginContainer/VBoxContainer/MarginContainer2/MainContain/AllProducts/MarginContainer/GridContainer" parent_id_path=PackedInt32Array(443296211, 1104986167) index="2" unique_id=134470663 instance=ExtResource("4_sfejf")]
 layout_mode = 2
 
-[node name="ProductSlotNew5" parent="MarginContainer/VBoxContainer/MarginContainer2/MainContain/AllProducts/GridContainer" unique_id=509209961 instance=ExtResource("3_cdrre")]
+[node name="ProductSlotNew4" parent="MarginContainer/VBoxContainer/MarginContainer2/MainContain/AllProducts/MarginContainer/GridContainer" parent_id_path=PackedInt32Array(443296211, 1104986167) index="3" unique_id=1993767744 instance=ExtResource("4_sfejf")]
 layout_mode = 2
 
-[node name="ProductSlotNew6" parent="MarginContainer/VBoxContainer/MarginContainer2/MainContain/AllProducts/GridContainer" unique_id=1269695710 instance=ExtResource("3_cdrre")]
+[node name="ProductSlotNew5" parent="MarginContainer/VBoxContainer/MarginContainer2/MainContain/AllProducts/MarginContainer/GridContainer" parent_id_path=PackedInt32Array(443296211, 1104986167) index="4" unique_id=1586095319 instance=ExtResource("4_sfejf")]
+layout_mode = 2
+
+[node name="ProductSlotNew6" parent="MarginContainer/VBoxContainer/MarginContainer2/MainContain/AllProducts/MarginContainer/GridContainer" parent_id_path=PackedInt32Array(443296211, 1104986167) index="5" unique_id=254650042 instance=ExtResource("4_sfejf")]
 layout_mode = 2
 
 [node name="Backpack" parent="MarginContainer/VBoxContainer/MarginContainer2/MainContain" unique_id=1724205858 instance=ExtResource("2_54il2")]
@@ -143,4 +136,5 @@ layout_mode = 2
 [node name="BackpackSlot8" parent="MarginContainer/VBoxContainer/MarginContainer2/MainContain/Backpack/MarginContainer/GridContainer" parent_id_path=PackedInt32Array(1724205858, 2065322540) index="7" unique_id=472651057 instance=ExtResource("5_cdrre")]
 layout_mode = 2
 
+[editable path="MarginContainer/VBoxContainer/MarginContainer2/MainContain/AllProducts"]
 [editable path="MarginContainer/VBoxContainer/MarginContainer2/MainContain/Backpack"]

@@ -61,8 +61,6 @@ transform = Transform3D(1, 0, 0, 0, 0.49999997, 0.86602545, 0, -0.86602545, 0.49
 
 [node name="Timer" parent="." unique_id=920722250 instance=ExtResource("4_ismto")]
 
-[node name="Shop" parent="." unique_id=574129809 instance=ExtResource("5_bddx0")]
-
 [node name="Setting" parent="." unique_id=1038978933 instance=ExtResource("6_u2b8d")]
 
 [node name="HUB" type="CanvasLayer" parent="." unique_id=1186964376]
@@ -105,6 +103,9 @@ offset_right = 132.0
 offset_bottom = 29.0
 text = "100"
 label_settings = SubResource("LabelSettings_oxop7")
+
+[node name="Shop" parent="HUB" unique_id=574129809 node_paths=PackedStringArray("player") instance=ExtResource("5_bddx0")]
+player = NodePath("../../Player")
 
 [connection signal="timeout" from="Timer" to="." method="_on_level_timer_timeout"]
 

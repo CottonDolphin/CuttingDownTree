@@ -1,7 +1,9 @@
 [gd_scene format=3 uid="uid://plk1pg47hfkx"]
 
+[ext_resource type="Script" uid="uid://bstqb40k1igdh" path="res://script/ui/shop/product_slot.gd" id="1_acjb0"]
 [ext_resource type="Texture2D" uid="uid://ckq3lke6rcev6" path="res://assets/icon/equipment/consumables/bomb.png" id="1_blstp"]
 [ext_resource type="Texture2D" uid="uid://c5twnc06r244x" path="res://assets/icon/resource/coin.png" id="2_adv4m"]
+[ext_resource type="Texture2D" uid="uid://pxy88vxg8atf" path="res://assets/icon/lock.png" id="4_vyfpf"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ndbbd"]
 bg_color = Color(0.92, 0.92, 0.92, 1)
@@ -40,6 +42,7 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_ndbbd")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_acjb0")
 theme_override_styles/hover = SubResource("StyleBoxFlat_adv4m")
 theme_override_styles/focus = SubResource("StyleBoxFlat_adv4m")
+script = ExtResource("1_acjb0")
 
 [node name="MarginContainer" type="MarginContainer" parent="." unique_id=2091295514]
 layout_mode = 1
@@ -62,7 +65,7 @@ size_flags_vertical = 3
 texture = ExtResource("1_blstp")
 stretch_mode = 5
 
-[node name="ProductLabel" type="Label" parent="MarginContainer/VBoxContainer" unique_id=500538618]
+[node name="ProductName" type="Label" parent="MarginContainer/VBoxContainer" unique_id=500538618]
 layout_mode = 2
 text = "Bomb
 "
@@ -83,7 +86,20 @@ texture = ExtResource("2_adv4m")
 [node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/MarginContainer/HBoxContainer" unique_id=90985047]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/MarginContainer" unique_id=1915173121]
+[node name="ProductPrice" type="Label" parent="MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/MarginContainer" unique_id=1915173121]
 layout_mode = 2
 text = "5"
 label_settings = SubResource("LabelSettings_wvhbo")
+
+[node name="LockCover" type="PanelContainer" parent="." unique_id=270299670]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="LockCover" unique_id=933036359]
+layout_mode = 2
+texture = ExtResource("4_vyfpf")
+stretch_mode = 5
