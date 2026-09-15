@@ -43,4 +43,10 @@ func generate_slots() -> void:
 
 func _ready() -> void:
 	
+	# 检查当前是否在 Godot 编辑器中预览
+	if not Engine.is_editor_hint():
+		# 如果是实际运行游戏，则自动删掉编辑器里手动放的占位子节点
+		for child in grid_container.get_children():
+			child.queue_free()
+	
 	generate_slots()

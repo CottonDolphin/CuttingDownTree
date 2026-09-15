@@ -1,0 +1,89 @@
+[gd_scene format=3 uid="uid://plk1pg47hfkx"]
+
+[ext_resource type="Texture2D" uid="uid://ckq3lke6rcev6" path="res://assets/icon/equipment/consumables/bomb.png" id="1_blstp"]
+[ext_resource type="Texture2D" uid="uid://c5twnc06r244x" path="res://assets/icon/resource/coin.png" id="2_adv4m"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ndbbd"]
+bg_color = Color(0.92, 0.92, 0.92, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_acjb0"]
+bg_color = Color(0.85446215, 0.9514695, 0.88569623, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.102000006, 0.85, 0.7502668, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_adv4m"]
+bg_color = Color(0.92, 0.92, 0.92, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.102000006, 0.85, 0.7502668, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_0h68f"]
+font_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_wvhbo"]
+font_color = Color(0, 0, 0, 1)
+
+[node name="ProductSlot" type="Button" unique_id=1151323193]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/normal = SubResource("StyleBoxFlat_ndbbd")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_acjb0")
+theme_override_styles/hover = SubResource("StyleBoxFlat_adv4m")
+theme_override_styles/focus = SubResource("StyleBoxFlat_adv4m")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=2091295514]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=1675947641]
+layout_mode = 2
+
+[node name="ProductIcon" type="TextureRect" parent="MarginContainer/VBoxContainer" unique_id=874843335]
+layout_mode = 2
+size_flags_vertical = 3
+texture = ExtResource("1_blstp")
+stretch_mode = 5
+
+[node name="ProductLabel" type="Label" parent="MarginContainer/VBoxContainer" unique_id=500538618]
+layout_mode = 2
+text = "Bomb
+"
+label_settings = SubResource("LabelSettings_0h68f")
+horizontal_alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer" unique_id=1380637499]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/MarginContainer" unique_id=898512514]
+layout_mode = 2
+alignment = 1
+
+[node name="GoldIcon" type="TextureRect" parent="MarginContainer/VBoxContainer/MarginContainer/HBoxContainer" unique_id=889254391]
+layout_mode = 2
+texture = ExtResource("2_adv4m")
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/MarginContainer/HBoxContainer" unique_id=90985047]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/MarginContainer" unique_id=1915173121]
+layout_mode = 2
+text = "5"
+label_settings = SubResource("LabelSettings_wvhbo")

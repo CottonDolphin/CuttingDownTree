@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://cfqtcfji4apad"]
 
 [ext_resource type="Script" uid="uid://ct8sry7lngybh" path="res://script/player.gd" id="1_xo3ru"]
-[ext_resource type="PackedScene" uid="uid://i3n0h6ckijnq" path="res://scene/backpack.tscn" id="2_hjaqi"]
+[ext_resource type="PackedScene" uid="uid://i3n0h6ckijnq" path="res://scene/ui/backpack/backpack.tscn" id="2_hjaqi"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_ycms6"]
 

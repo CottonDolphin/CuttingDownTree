@@ -35,6 +35,8 @@ var round_time:float
 
 # 开始当前轮次的游戏
 func start_game() -> void:
+	# 重置玩家位置
+	player.global_position = Vector3(0,0,0)
 	#更新关卡数据
 	update_level_data()
 	# 计算当前轮次目标

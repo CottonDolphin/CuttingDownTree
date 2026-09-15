@@ -1,12 +1,146 @@
 [gd_scene format=3 uid="uid://d1xwt7q3c0ufb"]
 
 [ext_resource type="Script" uid="uid://cx76s61akyrld" path="res://script/shop.gd" id="1_iuafe"]
+[ext_resource type="PackedScene" uid="uid://i3n0h6ckijnq" path="res://scene/ui/backpack/backpack.tscn" id="2_54il2"]
+[ext_resource type="Texture2D" uid="uid://c5twnc06r244x" path="res://assets/icon/resource/coin.png" id="2_cdrre"]
+[ext_resource type="PackedScene" uid="uid://plk1pg47hfkx" path="res://scene/ui/shop/product_slot.tscn" id="3_cdrre"]
+[ext_resource type="PackedScene" uid="uid://b0q6j4hh0djl" path="res://scene/ui/backpack/backpack_slot.tscn" id="5_cdrre"]
 
-[node name="Shop" type="Control" unique_id=574129809]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_adv4m"]
+bg_color = Color(0.91, 0.90727, 0.7462, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_tyecg"]
+font_size = 50
+font_color = Color(1, 0.22000003, 0.22000003, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_jldkq"]
+font_size = 30
+
+[node name="Shop" type="Control" unique_id=1233389385]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 script = ExtResource("1_iuafe")
+
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=1715939898]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_adv4m")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=773895330]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=666979957]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer" unique_id=368644871]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_bottom = 5
+
+[node name="Header" type="HBoxContainer" parent="MarginContainer/VBoxContainer/MarginContainer" unique_id=1049780431]
+layout_mode = 2
+
+[node name="HeadLine" type="Label" parent="MarginContainer/VBoxContainer/MarginContainer/Header" unique_id=950021489]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Shop"
+label_settings = SubResource("LabelSettings_tyecg")
+
+[node name="GoldCounter" type="HBoxContainer" parent="MarginContainer/VBoxContainer/MarginContainer/Header" unique_id=1101510992]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/VBoxContainer/MarginContainer/Header/GoldCounter" unique_id=1209955889]
+layout_mode = 2
+texture = ExtResource("2_cdrre")
+stretch_mode = 3
+
+[node name="CollectedNum" type="Label" parent="MarginContainer/VBoxContainer/MarginContainer/Header/GoldCounter" unique_id=1157547988]
+layout_mode = 2
+text = "100"
+label_settings = SubResource("LabelSettings_jldkq")
+
+[node name="MarginContainer2" type="MarginContainer" parent="MarginContainer/VBoxContainer" unique_id=1947195196]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="MainContain" type="HBoxContainer" parent="MarginContainer/VBoxContainer/MarginContainer2" unique_id=532838493]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 10
+
+[node name="AllProducts" type="MarginContainer" parent="MarginContainer/VBoxContainer/MarginContainer2/MainContain" unique_id=1414885555]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 1.9
+
+[node name="GridContainer" type="GridContainer" parent="MarginContainer/VBoxContainer/MarginContainer2/MainContain/AllProducts" unique_id=250864307]
+layout_mode = 2
+theme_override_constants/h_separation = 20
+theme_override_constants/v_separation = 20
+columns = 3
+
+[node name="ProductSlotNew" parent="MarginContainer/VBoxContainer/MarginContainer2/MainContain/AllProducts/GridContainer" unique_id=1151323193 instance=ExtResource("3_cdrre")]
+layout_mode = 2
+
+[node name="ProductSlotNew2" parent="MarginContainer/VBoxContainer/MarginContainer2/MainContain/AllProducts/GridContainer" unique_id=832488539 instance=ExtResource("3_cdrre")]
+layout_mode = 2
+
+[node name="ProductSlotNew3" parent="MarginContainer/VBoxContainer/MarginContainer2/MainContain/AllProducts/GridContainer" unique_id=922864659 instance=ExtResource("3_cdrre")]
+layout_mode = 2
+
+[node name="ProductSlotNew4" parent="MarginContainer/VBoxContainer/MarginContainer2/MainContain/AllProducts/GridContainer" unique_id=1763386923 instance=ExtResource("3_cdrre")]
+layout_mode = 2
+
+[node name="ProductSlotNew5" parent="MarginContainer/VBoxContainer/MarginContainer2/MainContain/AllProducts/GridContainer" unique_id=509209961 instance=ExtResource("3_cdrre")]
+layout_mode = 2
+
+[node name="ProductSlotNew6" parent="MarginContainer/VBoxContainer/MarginContainer2/MainContain/AllProducts/GridContainer" unique_id=1269695710 instance=ExtResource("3_cdrre")]
+layout_mode = 2
+
+[node name="Backpack" parent="MarginContainer/VBoxContainer/MarginContainer2/MainContain" unique_id=1724205858 instance=ExtResource("2_54il2")]
+layout_mode = 2
+
+[node name="BackpackSlot" parent="MarginContainer/VBoxContainer/MarginContainer2/MainContain/Backpack/MarginContainer/GridContainer" parent_id_path=PackedInt32Array(1724205858, 2065322540) index="0" unique_id=1931957793 instance=ExtResource("5_cdrre")]
+layout_mode = 2
+
+[node name="BackpackSlot2" parent="MarginContainer/VBoxContainer/MarginContainer2/MainContain/Backpack/MarginContainer/GridContainer" parent_id_path=PackedInt32Array(1724205858, 2065322540) index="1" unique_id=330544858 instance=ExtResource("5_cdrre")]
+layout_mode = 2
+
+[node name="BackpackSlot3" parent="MarginContainer/VBoxContainer/MarginContainer2/MainContain/Backpack/MarginContainer/GridContainer" parent_id_path=PackedInt32Array(1724205858, 2065322540) index="2" unique_id=2023449138 instance=ExtResource("5_cdrre")]
+layout_mode = 2
+
+[node name="BackpackSlot4" parent="MarginContainer/VBoxContainer/MarginContainer2/MainContain/Backpack/MarginContainer/GridContainer" parent_id_path=PackedInt32Array(1724205858, 2065322540) index="3" unique_id=801210121 instance=ExtResource("5_cdrre")]
+layout_mode = 2
+
+[node name="BackpackSlot5" parent="MarginContainer/VBoxContainer/MarginContainer2/MainContain/Backpack/MarginContainer/GridContainer" parent_id_path=PackedInt32Array(1724205858, 2065322540) index="4" unique_id=2101477287 instance=ExtResource("5_cdrre")]
+layout_mode = 2
+
+[node name="BackpackSlot6" parent="MarginContainer/VBoxContainer/MarginContainer2/MainContain/Backpack/MarginContainer/GridContainer" parent_id_path=PackedInt32Array(1724205858, 2065322540) index="5" unique_id=1270406385 instance=ExtResource("5_cdrre")]
+layout_mode = 2
+
+[node name="BackpackSlot7" parent="MarginContainer/VBoxContainer/MarginContainer2/MainContain/Backpack/MarginContainer/GridContainer" parent_id_path=PackedInt32Array(1724205858, 2065322540) index="6" unique_id=1368111164 instance=ExtResource("5_cdrre")]
+layout_mode = 2
+
+[node name="BackpackSlot8" parent="MarginContainer/VBoxContainer/MarginContainer2/MainContain/Backpack/MarginContainer/GridContainer" parent_id_path=PackedInt32Array(1724205858, 2065322540) index="7" unique_id=472651057 instance=ExtResource("5_cdrre")]
+layout_mode = 2
+
+[editable path="MarginContainer/VBoxContainer/MarginContainer2/MainContain/Backpack"]

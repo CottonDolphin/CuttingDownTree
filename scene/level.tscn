@@ -29,8 +29,9 @@ font_size = 30
 [sub_resource type="LabelSettings" id="LabelSettings_oxop7"]
 font_size = 30
 
-[node name="Level" type="Node" unique_id=1840467014]
+[node name="Level" type="Node" unique_id=1840467014 node_paths=PackedStringArray("player")]
 script = ExtResource("1_s4405")
+player = NodePath("Player")
 metadata/_edit_horizontal_guides_ = [32.0]
 
 [node name="Environment" type="Node" parent="." unique_id=1879762693]
