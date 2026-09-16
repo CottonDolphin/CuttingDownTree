@@ -36,7 +36,12 @@ var equipment_bar:Dictionary = {}
 var backpack_data_manager:BackpackDataManager
 
 # 玩家背包UI
-@onready var backpack_ui:BackPackUI = $Backpack
+@onready var backpack_ui:BackPackUI = $Hud/BackpackContainer/Backpack
+
+#背包容器
+@onready var backpack_container:Container = $Hud/BackpackContainer
+
+var can_input: bool = true
 
 
 # 移动玩家朝向
@@ -255,6 +260,9 @@ func _ready() -> void:
 	
 	
 func _process(delta: float) -> void:
+	if GameManager.is_paused:
+		return
+		
 	move_angle()
 		
 	use_euipment()
@@ -262,7 +270,9 @@ func _process(delta: float) -> void:
 	speed_up(delta)
 
 func _unhandled_input(event: InputEvent) -> void:
-	
+	if GameManager.is_paused:
+		return
+		
 	# 切换装备
 	if event.is_action_pressed("switch_equipment"):
 		print("切换装备")

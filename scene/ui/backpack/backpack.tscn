@@ -1,18 +1,22 @@
 [gd_scene format=3 uid="uid://i3n0h6ckijnq"]
 
 [ext_resource type="Script" uid="uid://c7qrln7cxoy0x" path="res://script/ui/backpack/backpack_ui.gd" id="1_kmmh3"]
+[ext_resource type="PackedScene" uid="uid://b0q6j4hh0djl" path="res://scene/ui/backpack/backpack_slot.tscn" id="2_u24s3"]
 
-[node name="Backpack" type="Container" unique_id=1211739048]
+[node name="Backpack" type="CenterContainer" unique_id=1611812429]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
+size_flags_vertical = 3
 script = ExtResource("1_kmmh3")
 
 [node name="MarginContainer" type="MarginContainer" parent="." unique_id=1449363678]
 layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 theme_override_constants/margin_left = 5
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
@@ -25,3 +29,27 @@ size_flags_vertical = 4
 theme_override_constants/h_separation = 20
 theme_override_constants/v_separation = 20
 columns = 4
+
+[node name="BackpackSlot" parent="MarginContainer/GridContainer" unique_id=1931957793 instance=ExtResource("2_u24s3")]
+layout_mode = 2
+
+[node name="BackpackSlot2" parent="MarginContainer/GridContainer" unique_id=1048451011 instance=ExtResource("2_u24s3")]
+layout_mode = 2
+
+[node name="BackpackSlot3" parent="MarginContainer/GridContainer" unique_id=2038433766 instance=ExtResource("2_u24s3")]
+layout_mode = 2
+
+[node name="BackpackSlot4" parent="MarginContainer/GridContainer" unique_id=508209910 instance=ExtResource("2_u24s3")]
+layout_mode = 2
+
+[node name="BackpackSlot5" parent="MarginContainer/GridContainer" unique_id=1847223569 instance=ExtResource("2_u24s3")]
+layout_mode = 2
+
+[node name="BackpackSlot6" parent="MarginContainer/GridContainer" unique_id=768639018 instance=ExtResource("2_u24s3")]
+layout_mode = 2
+
+[node name="BackpackSlot7" parent="MarginContainer/GridContainer" unique_id=301660099 instance=ExtResource("2_u24s3")]
+layout_mode = 2
+
+[node name="BackpackSlot8" parent="MarginContainer/GridContainer" unique_id=1315304465 instance=ExtResource("2_u24s3")]
+layout_mode = 2

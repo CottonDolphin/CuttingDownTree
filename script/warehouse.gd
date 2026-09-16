@@ -26,6 +26,9 @@ func deposit_wood() -> void:
 		print("身上没有木头可以提交！")
 
 func _unhandled_input(event: InputEvent) -> void:
+	if GameManager.is_paused:
+		return
+	
 	# 当玩家在范围内，并且按下了“交互”按键（如 E 键）
 	if is_player_in_range and event.is_action_pressed("interact"):
 		print("玩家按E了")

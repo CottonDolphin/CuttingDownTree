@@ -10,6 +10,9 @@ var round:int = 1
 #游戏地图
 @onready var map:Map = $Environment/Map
 
+#游戏商店
+@onready var shop:Shop = $Hud/Shop
+
 #关卡计时器
 @onready var timer:Timer = $Timer
 
@@ -35,17 +38,29 @@ var round_time:float
 
 # 开始当前轮次的游戏
 func start_game() -> void:
-	# 重置玩家位置
-	player.global_position = Vector3(0,0,0)
 	#更新关卡数据
 	update_level_data()
-	# 计算当前轮次目标
-	GameManager.update_target_amount(round_target)
+	
 	#开始计时
 	start_game_timer(round_time)
+	
 	#重新生成地图
 	if round > 1:
+		timer.paused = true
+		
+		
+		shop.open_shop()
+		
 		map.reset_map()
+		
+		
+	# 重置玩家位置
+	player.global_position = Vector3(0,0,0)
+	
+	# 计算当前轮次目标
+	GameManager.update_target_amount(round_target)
+	
+	
 	
 # 更新关卡数据
 func update_level_data() -> void:
@@ -94,16 +109,23 @@ func restart_game() -> void:
 	# 2. 直接重新加载当前关卡场景
 	get_tree().reload_current_scene()
 
-func _on_level_timer_timeout() -> void:
-	print("计时结束，触发特定逻辑！")
-	# 触发游戏结束、结算或生成敌人等逻辑
-	check_result()
+
 
 func _ready() -> void:
 	start_game()
+	
+	shop.continue_game.connect(_on_continue_game)
 
 func _process(delta: float) -> void:
 	if not timer.is_stopped():
 		var time_left = int(timer.time_left)
 		# 更新 UI，例如：
 		UiUpdate.update_time(time_left)
+
+func _on_level_timer_timeout() -> void:
+	print("计时结束，触发特定逻辑！")
+	# 触发游戏结束、结算或生成敌人等逻辑
+	check_result()
+
+func _on_continue_game() -> void:
+	timer.paused = false

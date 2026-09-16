@@ -1,4 +1,4 @@
-# 管理游戏的物品数据
+# 管理游戏的物品数据和变量
 extends Node
 
 #本轮收集木头的目标数量
@@ -9,6 +9,10 @@ var item_list:Dictionary = {}
 
 # 木头和金币的汇率
 @export var exchange_rate:float = 1
+
+# 游戏是否暂停
+var is_paused:bool = false
+
 
 
 # 更新木头的目标数量
@@ -42,12 +46,18 @@ func sell_wood_for_gold() -> void:
 	item_list.set("gold",current_gold)
 	item_list.set("wood",0)
 	print("当前金币数量为",current_gold)
-
-	
+		
 # 重置游戏数据
-func reset_all_data():
+func reset_all_data() -> void:
 	# 重置目标数量
 	target_mount = 0
 	
 	item_list.clear()
 	
+# 暂停
+func pause() -> void:
+	is_paused = true
+
+# 恢复游戏
+func resume() -> void:
+	is_paused = false

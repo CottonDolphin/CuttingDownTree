@@ -20,6 +20,10 @@ var slot_data:Dictionary
 # 锁定遮罩
 @onready var lock_cover:Container = $LockCover
 
+# 购买物品
+signal purchase_item(slot_data:Dictionary)
+
+
 # 设置商品的锁定状态
 func set_lock_status(is_unlocked:bool):
 	lock_cover.visible = !is_unlocked
@@ -32,3 +36,7 @@ func load_data(data:Dictionary) -> void:
 	product_name.text = data.name
 	product_price.text = str(data.price)
 	set_lock_status(data.is_unlocked)
+
+
+func _on_pressed() -> void:
+	purchase_item.emit(slot_data)
