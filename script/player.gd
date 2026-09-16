@@ -194,9 +194,9 @@ func open_backpack() -> void:
 
 # 添加到背包
 func add_to_backpack(item_data:Dictionary,item_num:int) -> void:
-	#判断是否为独占一格的装备
 	var item_name:String = item_data.name
 	backpack_data_manager.pick_up_item(item_data,item_num)
+	#判断是否装备
 	if EquipmentData.database.has(item_name):
 		if not equipment_bar.has(item_data.type):
 			#如果当前没有装备过该类型的装备，加载到装备栏中
@@ -244,6 +244,8 @@ func _physics_process(delta: float) -> void:
 		
 		
 func _ready() -> void:
+	
+	backpack_ui.visible = false
 
 	#实例化背包数据管理器
 	backpack_data_manager = BackpackDataManager.new()
@@ -255,7 +257,7 @@ func _ready() -> void:
 	#添加到背包
 	add_to_backpack(EquipmentData.database.get("axe"),1)
 	
-	add_to_backpack(EquipmentData.database.get("bomb"),5)
+	
 	
 	
 	

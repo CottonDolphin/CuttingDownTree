@@ -62,11 +62,18 @@ func _ready() -> void:
 		backpack_data_manager = player.backpack_data_manager
 		backpack_ui = player.backpack_ui
 	
-	open_shop()
+	#商店窗口初始隐藏
+	self.visible = false
 	
 func _purchase_item(data:Dictionary) -> void:
-	print("购买",data.name)
 
+	var item_name:String = data.name
+	print("购买",item_name)
+	if data.price <= GameManager.get_item_num("gold"):
+		GameManager.spend_gold(data.price)
+		player.add_to_backpack(EquipmentData.database.get(data.name),1)
+	else:
+		print("你没有足够的金币")
 
 func _on_continue_game_pressed() -> void:
 	close_shop()

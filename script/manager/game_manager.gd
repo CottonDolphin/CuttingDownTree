@@ -32,7 +32,22 @@ func add_item(item_name:String,add_amount:int) -> void:
 	var current_amount:int = item_list.get(item_name,0)
 	var new_amount:int = current_amount + add_amount
 	item_list.set(item_name,new_amount)
-	
+
+# 减少物品数量
+func reduce_item_num(item_name:String,amount:int) -> void:
+	var current_amount:int = item_list.get(item_name,0)
+	var new_amount:int = current_amount - amount
+	if new_amount >= 0:
+		item_list.set(item_name,new_amount)
+	else:
+		push_error("物品数量不能为负数")
+
+# 花钱
+func spend_gold(amount:int) -> void:
+	var what_kind_of_money:String = "gold"
+	reduce_item_num(what_kind_of_money,amount)
+	UiUpdate.update_gold(get_item_num(what_kind_of_money))
+
 # 获取数据
 func get_item_num(item_name:String) -> int:
 	return item_list.get(item_name,0)
